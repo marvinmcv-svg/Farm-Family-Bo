@@ -68,6 +68,11 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 100px; cursor: pointer;
       border: 2px solid transparent; transition: border-color var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .gallery-main img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 18px;
     }
     .gallery-main:hover { border-color: var(--teal); }
     .gallery-thumbs { display: flex; gap: 10px; }
@@ -76,7 +81,13 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 28px; cursor: pointer; border: 2px solid transparent;
       transition: border-color var(--transition);
+      position: relative; overflow: hidden;
     }
+    .gallery-thumb img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 10px;
+    }
+    .gallery-thumb span { position: relative; z-index: 1; }
     .gallery-thumb.active, .gallery-thumb:hover { border-color: var(--teal); }
     .gallery-thumb:nth-child(1) { background: linear-gradient(145deg, #e4f4f4, #b8e0e0); }
     .gallery-thumb:nth-child(2) { background: linear-gradient(145deg, #fff8e8, #fdecc8); }
@@ -258,12 +269,27 @@
 
         <!-- GALLERY -->
         <div class="gallery fade-up">
-          <div class="gallery-main" id="main-img">🍘</div>
+          <div class="gallery-main" id="main-img">
+            <img id="main-img-el" src="images/product-original.jpg" alt="Galleta de Arroz Original Family Farm" onerror="this.style.display='none'">
+            <span id="main-emoji">🍘</span>
+          </div>
           <div class="gallery-thumbs">
-            <div class="gallery-thumb active" data-emoji="🍘" onclick="setMain(this)">🍘</div>
-            <div class="gallery-thumb" data-emoji="🍃" onclick="setMain(this)">🍃</div>
-            <div class="gallery-thumb" data-emoji="🌾" onclick="setMain(this)">🌾</div>
-            <div class="gallery-thumb" data-emoji="📦" onclick="setMain(this)">📦</div>
+            <div class="gallery-thumb active" data-img="images/product-original.jpg" data-emoji="🍘" onclick="setMain(this)">
+              <img src="images/product-original.jpg" alt="Galleta Original" onerror="this.style.display='none'">
+              <span>🍘</span>
+            </div>
+            <div class="gallery-thumb" data-img="images/product-detalle.jpg" data-emoji="🍃" onclick="setMain(this)">
+              <img src="images/product-detalle.jpg" alt="Detalle galleta" onerror="this.style.display='none'">
+              <span>🍃</span>
+            </div>
+            <div class="gallery-thumb" data-img="images/product-ingredientes.jpg" data-emoji="🌾" onclick="setMain(this)">
+              <img src="images/product-ingredientes.jpg" alt="Ingredientes" onerror="this.style.display='none'">
+              <span>🌾</span>
+            </div>
+            <div class="gallery-thumb" data-img="images/product-packaging.jpg" data-emoji="📦" onclick="setMain(this)">
+              <img src="images/product-packaging.jpg" alt="Empaque Family Farm" onerror="this.style.display='none'">
+              <span>📦</span>
+            </div>
           </div>
         </div>
 
@@ -557,7 +583,12 @@
 
     // Gallery
     function setMain(thumb) {
-      document.getElementById('main-img').textContent = thumb.dataset.emoji;
+      document.getElementById('main-emoji').textContent = thumb.dataset.emoji;
+      const mainImg = document.getElementById('main-img-el');
+      if (thumb.dataset.img) {
+        mainImg.src = thumb.dataset.img;
+        mainImg.style.display = '';
+      }
       document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
     }

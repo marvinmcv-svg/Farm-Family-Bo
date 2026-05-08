@@ -93,10 +93,14 @@
       min-height: 460px; display: flex; align-items: center;
       justify-content: center; flex-direction: column; gap: 16px;
       border: 1px solid rgba(255,255,255,.15);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px); position: relative; overflow: hidden;
     }
-    .hero-img-story .big-emoji { font-size: 80px; }
-    .hero-img-story p { color: rgba(255,255,255,.5); font-size: 13px; letter-spacing: 1px; }
+    .hero-img-story img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 24px;
+    }
+    .hero-img-story .big-emoji { font-size: 80px; position: relative; z-index: 1; }
+    .hero-img-story p { color: rgba(255,255,255,.5); font-size: 13px; letter-spacing: 1px; position: relative; z-index: 1; }
 
     @media (max-width: 768px) {
       .hero-historia-inner { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
@@ -176,9 +180,13 @@
       background: var(--teal); border-radius: 20px; min-height: 360px;
       display: flex; align-items: center; justify-content: center;
       flex-direction: column; gap: 16px; color: #fff;
+      position: relative; overflow: hidden;
     }
-    .why-matters-img .big-emoji { font-size: 72px; }
-    .why-matters-img p { font-size: 13px; opacity: .6; letter-spacing: 1px; }
+    .why-matters-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .why-matters-img .big-emoji { font-size: 72px; position: relative; z-index: 1; }
+    .why-matters-img p { font-size: 13px; opacity: .6; letter-spacing: 1px; position: relative; z-index: 1; }
     .why-matters-content h2 { font-size: clamp(26px, 3.5vw, 40px); color: var(--teal); margin-bottom: 20px; }
     .why-matters-content p { font-size: 16px; line-height: 1.8; color: var(--dark); margin-bottom: 16px; }
     @media (max-width: 768px) { .why-matters-inner { grid-template-columns: 1fr; } .why-matters-img { min-height: 200px; } }
@@ -296,6 +304,7 @@
         </div>
       </div>
       <div class="hero-img-story fade-up d2">
+        <img src="images/historia-nino.jpg" alt="El aventurero — Family Farm Bolivia" onerror="this.style.display='none'">
         <div class="big-emoji">👶🌾💛</div>
         <p>EL AVENTURERO — SANTA CRUZ, BOLIVIA</p>
       </div>
@@ -445,6 +454,7 @@
     <div class="container">
       <div class="why-matters-inner">
         <div class="why-matters-img fade-up">
+          <img src="images/historia-familia.jpg" alt="La familia de Family Farm Bolivia" onerror="this.style.display='none'">
           <div class="big-emoji">💛🌾</div>
           <p>FAMILY FARM BOLIVIA</p>
         </div>
