@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recetas — Family Farm Bolivia | La Mesa de la Familia</title>
+  <meta name="description" content="Recetas con galletas de arroz Family Farm Bolivia. Desayunos, cenas gourmet, snacks para bebés y más. De nuestra mesa familiar a la tuya." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #1B5E5E; --teal-mid: #2A7E7E; --teal-light: #E4F4F4;
+      --orange: #E8820A; --gold: #F0B429; --cream: #FDFAF5;
+      --dark: #131A1A; --gray: #5A6A6A;
+      --shadow: 0 4px 24px rgba(27,94,94,.12); --transition: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 72px 0; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(253,250,245,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,94,94,.1); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-circle span { font-family: 'Bebas Neue', sans-serif; color: #fff; line-height: 1; display: block; }
+    .logo-circle .lc-top { font-size: 9px; letter-spacing: 1px; }
+    .logo-circle .lc-mid { font-size: 11px; }
+    .logo-circle .lc-bot { font-size: 8px; opacity:.85; }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--teal); font-weight: 700; line-height: 1.2; }
+    .logo-text small { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--gray); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+    .btn-wa-nav { background: var(--orange); color: #fff; padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .btn-wa-nav:hover { background: #c96e06; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--teal-light); padding: 16px 24px 24px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--teal-light); }
+      .hamburger { display: flex; }
+      .btn-wa-nav { display: none; }
+    }
+
+    /* HERO */
+    .hero-recetas {
+      padding-top: 80px; min-height: 60vh;
+      display: flex; align-items: center;
+      background: linear-gradient(160deg, var(--cream) 0%, #e8f4f4 100%);
+    }
+    .hero-recetas-inner { max-width: 1120px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-recetas h1 { font-size: clamp(30px, 4.5vw, 52px); color: var(--dark); margin-bottom: 16px; }
+    .hero-recetas h1 em { color: var(--teal); font-style: normal; }
+    .hero-recetas p { font-size: 18px; color: var(--gray); line-height: 1.8; }
+    .hero-food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .food-tile { border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; height: 100px; }
+    @media (max-width: 768px) { .hero-recetas-inner { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px; } .hero-food-grid { display: none; } }
+
+    /* FILTERS */
+    .filters { background: #fff; padding: 28px 0; border-bottom: 1px solid var(--teal-light); position: sticky; top: 72px; z-index: 100; }
+    .filter-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600;
+      border: 2px solid var(--teal-light); background: #fff; color: var(--gray);
+      cursor: pointer; white-space: nowrap; transition: all var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+    /* RECIPES GRID */
+    .recipes-section { background: var(--cream); }
+    .recipes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .recipe-card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow); transition: transform var(--transition), box-shadow var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .recipe-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(27,94,94,.18); }
+    .recipe-card[data-hidden="true"] { display: none; }
+    .recipe-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 64px; flex-shrink: 0; }
+    .recipe-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .recipe-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .recipe-cat { font-size: 12px; font-weight: 600; color: var(--teal); background: var(--teal-light); padding: 3px 10px; border-radius: 50px; }
+    .recipe-body h3 { font-size: 19px; margin-bottom: 8px; }
+    .recipe-body p { font-size: 14px; color: var(--gray); line-height: 1.6; flex: 1; margin-bottom: 16px; }
+    .recipe-footer { display: flex; align-items: center; justify-content: space-between; }
+    .recipe-meta { display: flex; gap: 12px; font-size: 13px; color: var(--gray); }
+    .recipe-meta span { display: flex; align-items: center; gap: 4px; }
+    .recipe-cta { font-size: 13px; font-weight: 600; color: var(--orange); }
+    .recipe-cta:hover { text-decoration: underline; }
+    .collab-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--gold); color: var(--dark); padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+
+    @media (max-width: 900px) { .recipes-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .recipes-grid { grid-template-columns: 1fr; } }
+
+    /* QUIZ */
+    .quiz-section { background: var(--teal); color: #fff; padding: 72px 0; }
+    .quiz-card { background: rgba(255,255,255,.1); border-radius: 24px; padding: 48px; max-width: 680px; margin: 0 auto; border: 1px solid rgba(255,255,255,.15); }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; }
+    .quiz-q { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 24px; }
+    .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+    .quiz-opt {
+      background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.2);
+      border-radius: 12px; padding: 14px 20px; cursor: pointer;
+      font-size: 16px; color: #fff; transition: all var(--transition);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .quiz-opt:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
+    .quiz-opt.selected { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    .quiz-nav { display: flex; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-gold:hover { background: #d9a020; transform: translateY(-1px); }
+    .btn-outline-white { border-color: rgba(255,255,255,.4); color: #fff; background: transparent; }
+    .btn-outline-white:hover { background: rgba(255,255,255,.15); }
+    .btn-wa { background: #25D366; color: #fff; }
+    .btn-wa:hover { background: #1da851; }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-primary:hover { background: #134848; }
+    .btn-secondary { background: var(--orange); color: #fff; }
+    .btn-secondary:hover { background: #c96e06; }
+    .quiz-progress { display: flex; gap: 8px; margin-bottom: 32px; }
+    .quiz-dot { height: 4px; flex: 1; background: rgba(255,255,255,.2); border-radius: 4px; transition: background var(--transition); }
+    .quiz-dot.done { background: var(--gold); }
+    .quiz-result { text-align: center; }
+    .quiz-result-icon { font-size: 80px; margin-bottom: 16px; }
+    .quiz-result h3 { font-family: 'Playfair Display', serif; font-size: 28px; color: #fff; margin-bottom: 8px; }
+    .quiz-result p { color: rgba(255,255,255,.8); font-size: 16px; margin-bottom: 28px; line-height: 1.7; }
+
+    /* COLLABO */
+    .collabo { background: var(--cream); }
+    .collabo-card { background: #fff; border-radius: 24px; padding: 48px; box-shadow: var(--shadow); max-width: 680px; margin: 0 auto; border: 2px solid var(--teal-light); }
+    .collabo-card h3 { font-size: 26px; color: var(--teal); margin-bottom: 12px; }
+    .collabo-card p { font-size: 16px; color: var(--gray); margin-bottom: 28px; line-height: 1.7; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--teal-light);
+      border-radius: 12px; font-family: inherit; font-size: 15px; color: var(--dark);
+      background: var(--cream); transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--teal); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+
+    /* UGC */
+    .ugc { background: var(--teal); padding: 72px 0; text-align: center; }
+    .ugc h2 { font-size: clamp(26px, 3.5vw, 40px); color: #fff; margin-bottom: 12px; }
+    .ugc p { font-size: 18px; color: rgba(255,255,255,.8); margin-bottom: 32px; }
+    .ugc-hashtag { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--gold); letter-spacing: 2px; margin-bottom: 32px; display: block; }
+    .ugc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 600px; margin: 0 auto 32px; }
+    .ugc-tile { border-radius: 12px; height: 130px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    @media (max-width: 480px) { .ugc-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* FLOAT WA */
+    .float-wa { position: fixed; bottom: 28px; left: 28px; z-index: 900; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,.4); transition: transform var(--transition); }
+    .float-wa:hover { transform: scale(1.1); }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,.8); padding: 48px 0 28px; }
+    .footer-b { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-b p { font-size: 13px; color: rgba(255,255,255,.35); }
+    .social-links { display: flex; gap: 12px; }
+    .social-link { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background var(--transition); }
+    .social-link:hover { background: var(--teal); }
+
+    .section-kicker { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { font-size: clamp(26px, 3.5vw, 40px); }
+    .section-header p { font-size: 16px; color: var(--gray); margin-top: 10px; }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay:.1s; } .fade-up.d2 { transition-delay:.2s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-circle">
+          <span class="lc-top">FAMILY</span><span class="lc-mid">FARM</span><span class="lc-bot">BOL.</span>
+        </div>
+        <div class="logo-text">Family Farm <small>Bolivia</small></div>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="historia.html">Nuestra Historia</a></li>
+        <li><a href="producto.html">Productos</a></li>
+        <li><a href="recetas.html" class="active">Recetas</a></li>
+        <li><a href="https://wa.me/59175019023" target="_blank" class="btn-wa-nav">Pedir Ahora 💬</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-recetas">
+    <div class="hero-recetas-inner">
+      <div class="fade-up">
+        <p class="section-kicker">La Mesa de la Familia</p>
+        <h1>De nuestra mesa <em>familiar</em> a la tuya.</h1>
+        <p>Recetas simples, rápidas y deliciosas con nuestras galletas de arroz. Porque comer bien no tiene que ser complicado ni aburrido.</p>
+      </div>
+      <div class="hero-food-grid fade-up d2">
+        <div class="food-tile" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">👶</div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">🥑</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="container">
+      <div class="filter-row" id="filters">
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="desayuno">🌅 Desayuno</button>
+        <button class="filter-btn" data-filter="cena">🌙 Cena Express</button>
+        <button class="filter-btn" data-filter="bebes">👶 Para Bebés</button>
+        <button class="filter-btn" data-filter="gourmet">⭐ Gourmet</button>
+        <button class="filter-btn" data-filter="dulce">🍯 Dulce</button>
+        <button class="filter-btn" data-filter="salado">🧂 Salado</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPES -->
+  <section class="recipes-section section" id="recetas">
+    <div class="container">
+      <div class="recipes-grid" id="recipes-grid">
+
+        <!-- Receta 1 -->
+        <div class="recipe-card fade-up" data-cats="desayuno,dulce">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+          <div class="recipe-body">
+            <span class="collab-badge">🤝 @dulcesjessen</span>
+            <div class="recipe-cats">
+              <span class="recipe-cat">Desayuno</span>
+              <span class="recipe-cat">Dulce</span>
+            </div>
+            <h3>Galleta con Mermelada de Uchuva</h3>
+            <p>El balance perfecto entre crujiente y dulce. En colaboración con @dulcesjessen, la marca de mermeladas artesanales más linda de Santa Cruz. ¡Una combinación ganadora!</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 2 min</span>
+                <span>🌿 Vegana</span>
+              </div>
+              <a href="https://wa.me/59175019023?text=Hola!%20Vi%20la%20receta%20con%20uchuva%20y%20quiero%20pedir%20%F0%9F%8C%BE"
+                 target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receta 2 -->
+        <div class="recipe-card fade-up d1" data-cats="cena,gourmet,salado">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
+          <div class="recipe-body">
+            <div class="recipe-cats">
+              <span class="recipe-cat">Cena Express</span>
+              <span class="recipe-cat">Gourmet</span>
+              <span class="recipe-cat">Salado</span>
+            </div>
+            <h3>Cena Gourmet en 5 Minutos</h3>
+            <p>Jamón ahumado + huevo pochado + tomates secos + brotes frescos. Después de un día largo, mereces algo fácil, rápido y delicioso — ¡pero sin culpa!</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 5 min</span>
+                <span>⭐ Gourmet</span>
+              </div>
+              <a href="https://wa.me/59175019023" target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receta 3 -->
+        <div class="recipe-card fade-up d2" data-cats="bebes,dulce">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">👶</div>
+          <div class="recipe-body">
+            <div class="recipe-cats">
+              <span class="recipe-cat">Para Bebés</span>
+              <span class="recipe-cat">Dulce</span>
+            </div>
+            <h3>Primer Snack del Aventurero</h3>
+            <p>Frambuesas o moras + galleta Family Farm. La primera galleta de tu aventurero — sin proteína de leche de vaca, sin culpa. Probada y aprobada por el nuestro.</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 1 min</span>
+                <span>👶 0+ meses</span>
+              </div>
+              <a href="https://wa.me/59175019023?text=Hola!%20Me%20interesa%20la%20galleta%20para%20beb%C3%A9s%20%F0%9F%91%B6"
+                 target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receta 4 -->
+        <div class="recipe-card fade-up" data-cats="desayuno,salado">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">🥑</div>
+          <div class="recipe-body">
+            <div class="recipe-cats">
+              <span class="recipe-cat">Desayuno</span>
+              <span class="recipe-cat">Salado</span>
+            </div>
+            <h3>Desayuno Fitness con Palta</h3>
+            <p>Palta + tomate cherry + sal marina + semillas de chía. El desayuno del deportista: saludable, proteico y sin culpa. Energía para toda la mañana.</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 3 min</span>
+                <span>💪 Fitness</span>
+              </div>
+              <a href="https://wa.me/59175019023" target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receta 5 -->
+        <div class="recipe-card fade-up d1" data-cats="desayuno,dulce,gourmet">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#f4f0e8,#e8dcc0);">🧀</div>
+          <div class="recipe-body">
+            <div class="recipe-cats">
+              <span class="recipe-cat">Desayuno</span>
+              <span class="recipe-cat">Dulce</span>
+              <span class="recipe-cat">Gourmet</span>
+            </div>
+            <h3>Queso Crema, Miel y Nueces</h3>
+            <p>Queso crema + miel de caña boliviana + nueces tostadas. El desayuno de los domingos que mereces. Simple, elegante y absolutamente delicioso.</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 2 min</span>
+                <span>⭐ Gourmet</span>
+              </div>
+              <a href="https://wa.me/59175019023" target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receta 6 -->
+        <div class="recipe-card fade-up d2" data-cats="gourmet,salado">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#f4e8e4,#e8c8c0);">🌶️</div>
+          <div class="recipe-body">
+            <div class="recipe-cats">
+              <span class="recipe-cat">Gourmet</span>
+              <span class="recipe-cat">Salado</span>
+            </div>
+            <h3>Snack Andino con Charque</h3>
+            <p>Charque (carne seca boliviana) + ají amarillo + cebolla morada. Bolivia en cada mordida. Orgullo local, sabor auténtico. El snack que te conecta con tus raíces.</p>
+            <div class="recipe-footer">
+              <div class="recipe-meta">
+                <span>⏱ 5 min</span>
+                <span>📍 Bolivia</span>
+              </div>
+              <a href="https://wa.me/59175019023" target="_blank" class="recipe-cta">Pedir ahora →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="no-results" style="display:none;text-align:center;padding:48px;color:var(--gray);">
+        <p style="font-size:40px;margin-bottom:16px;">🍘</p>
+        <h3 style="font-size:22px;margin-bottom:8px;">No hay recetas con ese filtro aún</h3>
+        <p>¡Pero pronto agregamos más! Escríbenos si tienes una idea.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ INTERACTIVO -->
+  <section class="quiz-section" id="quiz">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:40px;">
+        <p class="section-kicker" style="color:var(--gold);">Quiz interactivo</p>
+        <h2 style="font-size:clamp(26px,3.5vw,40px);color:#fff;">¿Cuál es tu galleta perfecta?</h2>
+        <p style="font-size:17px;color:rgba(255,255,255,.75);margin-top:10px;">3 preguntas para encontrar tu combinación ideal</p>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-progress">
+          <div class="quiz-dot" id="dot-1"></div>
+          <div class="quiz-dot" id="dot-2"></div>
+          <div class="quiz-dot" id="dot-3"></div>
+        </div>
+
+        <!-- Paso 1 -->
+        <div class="quiz-step active" id="step-1">
+          <p class="quiz-q">¿Para quién es principalmente la galleta?</p>
+          <div class="quiz-options">
+            <div class="quiz-opt" data-val="bebes" onclick="selectOpt(this)">👶 Para mi bebé o niño pequeño</div>
+            <div class="quiz-opt" data-val="deportista" onclick="selectOpt(this)">💪 Para mí — soy deportista o cuido mi alimentación</div>
+            <div class="quiz-opt" data-val="familia" onclick="selectOpt(this)">👨‍👩‍👧 Para toda la familia</div>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn btn-gold" onclick="nextStep(1)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="quiz-step" id="step-2">
+          <p class="quiz-q">¿Cuándo la vas a comer principalmente?</p>
+          <div class="quiz-options">
+            <div class="quiz-opt" data-val="manana" onclick="selectOpt(this)">🌅 En el desayuno</div>
+            <div class="quiz-opt" data-val="tarde" onclick="selectOpt(this)">☀️ Como snack en el día</div>
+            <div class="quiz-opt" data-val="noche" onclick="selectOpt(this)">🌙 En la cena o merienda</div>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn btn-outline-white" onclick="prevStep(2)">← Atrás</button>
+            <button class="btn btn-gold" onclick="nextStep(2)">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="quiz-step" id="step-3">
+          <p class="quiz-q">¿Qué sabor prefieres?</p>
+          <div class="quiz-options">
+            <div class="quiz-opt" data-val="dulce" onclick="selectOpt(this)">🍯 Dulce — mermelada, miel, frutas</div>
+            <div class="quiz-opt" data-val="salado" onclick="selectOpt(this)">🧂 Salado — queso, jamón, palta</div>
+            <div class="quiz-opt" data-val="natural" onclick="selectOpt(this)">🌿 Natural — solo la galleta, sin nada</div>
+          </div>
+          <div class="quiz-nav">
+            <button class="btn btn-outline-white" onclick="prevStep(3)">← Atrás</button>
+            <button class="btn btn-gold" onclick="showResult()">Ver mi resultado ✨</button>
+          </div>
+        </div>
+
+        <!-- Resultado -->
+        <div class="quiz-step" id="step-result">
+          <div class="quiz-result">
+            <div class="quiz-result-icon" id="result-icon">🍘</div>
+            <h3 id="result-title">Tu galleta ideal es...</h3>
+            <p id="result-desc">Basado en tus preferencias, te recomendamos la Galleta Original.</p>
+            <a href="https://wa.me/59175019023?text=Hola!%20Hice%20el%20quiz%20de%20recetas%20y%20quiero%20pedir%20mi%20galleta%20ideal%20%F0%9F%8C%BE"
+               target="_blank" class="btn btn-wa">Pedir mi galleta ideal 💬</a>
+            <br/><br/>
+            <button class="btn btn-outline-white" onclick="resetQuiz()">Hacer el quiz de nuevo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLABORACIONES -->
+  <section class="collabo section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Colaboraciones</p>
+        <h2>¿Tienes una marca local en Santa Cruz?</h2>
+        <p>Creemos en el poder de las marcas bolivianas juntas. Si tienes un producto que combine con nuestras galletas, hablemos.</p>
+      </div>
+      <div class="collabo-card fade-up d1">
+        <h3>Colabora con nosotros 🤝</h3>
+        <p>Al igual que con @dulcesjessen (mermelada de uchuva), buscamos marcas locales de Santa Cruz con productos naturales, gourmet o artesanales para crear recetas increíbles juntos.</p>
+        <form onsubmit="submitCollab(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Tu nombre</label>
+              <input type="text" placeholder="Ej: María García" required />
+            </div>
+            <div class="form-group">
+              <label>Nombre de tu marca</label>
+              <input type="text" placeholder="Ej: Dulces Jessen" required />
+            </div>
+            <div class="form-group">
+              <label>Instagram de tu marca</label>
+              <input type="text" placeholder="@tumarca" />
+            </div>
+            <div class="form-group">
+              <label>WhatsApp de contacto</label>
+              <input type="tel" placeholder="+591 7..." required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>¿Qué producto tienes y cómo crees que combina con nuestras galletas?</label>
+            <textarea rows="3" placeholder="Cuéntanos de tu producto..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar propuesta 🌾</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- UGC -->
+  <section class="ugc">
+    <div class="container">
+      <h2 class="fade-up">¿Cómo comes tu Family Farm?</h2>
+      <p class="fade-up d1">Muéstranos tus combinaciones favoritas y te repostamos en nuestras historias.</p>
+      <span class="ugc-hashtag fade-up d2">#familyfarmbolivia</span>
+      <div class="ugc-grid fade-up d2">
+        <div class="ugc-tile" style="background:linear-gradient(145deg,#1B5E5E,#2A7E7E);">🍘</div>
+        <div class="ugc-tile" style="background:linear-gradient(145deg,#E8820A,#F0B429);">🍯</div>
+        <div class="ugc-tile" style="background:linear-gradient(145deg,#2A7E7E,#1B5E5E);">🥑</div>
+        <div class="ugc-tile" style="background:linear-gradient(145deg,#F0B429,#E8820A);">👶</div>
+      </div>
+      <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="btn btn-gold">Ver en Instagram 📸</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-b">
+        <p>© 2024 Family Farm Bolivia · "Come sin culpa." · Santa Cruz, Bolivia</p>
+        <div class="social-links">
+          <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="social-link">📸</a>
+          <a href="https://wa.me/59175019023" target="_blank" class="social-link">💬</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!%20%F0%9F%8C%BE" target="_blank" class="float-wa">💬</a>
+
+  <script src="chatbot.js" defer></script>
+  <script>
+    // NAV
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+    window.addEventListener('scroll', () => { document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(27,94,94,.15)' : 'none'; });
+
+    // FILTERS
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        let visible = 0;
+        document.querySelectorAll('.recipe-card').forEach(card => {
+          const cats = card.dataset.cats.split(',');
+          const show = filter === 'all' || cats.includes(filter);
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
+      });
+    });
+
+    // QUIZ
+    let answers = {};
+    let currentStep = 1;
+
+    function selectOpt(el) {
+      el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function nextStep(from) {
+      const selected = document.querySelector(`#step-${from} .quiz-opt.selected`);
+      if (!selected) { alert('Por favor elige una opción.'); return; }
+      answers[from] = selected.dataset.val;
+      document.querySelector(`#dot-${from}`).classList.add('done');
+      document.getElementById(`step-${from}`).classList.remove('active');
+      document.getElementById(`step-${from + 1}`).classList.add('active');
+      currentStep = from + 1;
+    }
+
+    function prevStep(from) {
+      document.getElementById(`step-${from}`).classList.remove('active');
+      document.getElementById(`step-${from - 1}`).classList.add('active');
+      document.querySelector(`#dot-${from - 1}`).classList.remove('done');
+      currentStep = from - 1;
+    }
+
+    function showResult() {
+      const selected = document.querySelector(`#step-3 .quiz-opt.selected`);
+      if (!selected) { alert('Por favor elige una opción.'); return; }
+      answers[3] = selected.dataset.val;
+      document.querySelectorAll('.quiz-dot').forEach(d => d.classList.add('done'));
+      document.getElementById('step-3').classList.remove('active');
+      document.getElementById('step-result').classList.add('active');
+      const r = getResult();
+      document.getElementById('result-icon').textContent = r.icon;
+      document.getElementById('result-title').textContent = r.title;
+      document.getElementById('result-desc').textContent = r.desc;
+    }
+
+    function getResult() {
+      if (answers[1] === 'bebes') return { icon: '👶', title: 'Galleta Para Bebés', desc: 'Diseñada especialmente sin proteína de leche de vaca. El primer snack de tu aventurero, hecho con amor.' };
+      if (answers[3] === 'dulce') return { icon: '🍯', title: 'Galleta + Mermelada de Uchuva', desc: 'La combinación perfecta para los que aman lo dulce. Con @dulcesjessen, esta receta es un must.' };
+      if (answers[3] === 'salado' && answers[2] === 'noche') return { icon: '🍳', title: 'Cena Gourmet en 5 Minutos', desc: 'Para el gourmet que no tiene tiempo. Jamón + huevo pochado + brotes. Impresionante en minutos.' };
+      if (answers[3] === 'salado') return { icon: '🥑', title: 'Desayuno Fitness con Palta', desc: 'Tu aliada para el día activo. Palta, tomate cherry y semillas de chía. Clean eating boliviano.' };
+      return { icon: '🍘', title: 'Galleta Original — Solo', desc: 'A veces lo simple es lo mejor. Crujiente, ligera y honesta. La galleta que lo inició todo.' };
+    }
+
+    function resetQuiz() {
+      answers = {};
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.quiz-dot').forEach(d => d.classList.remove('done'));
+      document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+      document.getElementById('step-1').classList.add('active');
+    }
+
+    // COLLAB FORM
+    function submitCollab(e) {
+      e.preventDefault();
+      alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto por WhatsApp. 💛');
+      e.target.reset();
+    }
+
+    // SCROLL ANIM
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

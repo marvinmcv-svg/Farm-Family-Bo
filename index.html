@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Farm Bolivia — Come sin culpa.</title>
+  <meta name="description" content="Galletas de arroz artesanales hechas con amor en Santa Cruz, Bolivia. Sin gluten, sin lactosa, veganas y aptas para bebés." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #1B5E5E;
+      --teal-mid:    #2A7E7E;
+      --teal-light:  #E4F4F4;
+      --orange:      #E8820A;
+      --orange-soft: #FFA63C;
+      --gold:        #F0B429;
+      --cream:       #FDFAF5;
+      --dark:        #131A1A;
+      --gray:        #5A6A6A;
+      --radius:      12px;
+      --shadow:      0 4px 24px rgba(27,94,94,.12);
+      --transition:  0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    .bebas           { font-family: 'Bebas Neue', sans-serif; }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section   { padding: 80px 0; }
+    .section-sm { padding: 56px 0; }
+
+    /* ── NAVBAR ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(253,250,245,.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27,94,94,.1);
+      transition: var(--transition);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: 1120px; margin: 0 auto;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .logo-circle {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--teal); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-circle span {
+      font-family: 'Bebas Neue', sans-serif;
+      color: #fff; line-height: 1;
+      display: block;
+    }
+    .logo-circle .lc-top { font-size: 9px; letter-spacing: 1px; }
+    .logo-circle .lc-mid { font-size: 11px; letter-spacing: .5px; }
+    .logo-circle .lc-bot { font-size: 8px; letter-spacing: 1px; opacity:.85; }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--teal); font-weight: 700; line-height: 1.2; }
+    .logo-text small { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--gray); letter-spacing: .5px; }
+
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--teal); }
+
+    .btn-wa-nav {
+      background: var(--orange); color: #fff; padding: 10px 20px;
+      border-radius: 50px; font-size: 14px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-wa-nav:hover { background: #c96e06; transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; transition: var(--transition); }
+
+    /* mobile nav */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--cream); border-bottom: 2px solid var(--teal-light);
+        padding: 16px 24px 24px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--teal-light); font-size: 16px; }
+      .nav-links li:last-child a { border-bottom: none; }
+      .hamburger { display: flex; }
+      .btn-wa-nav { display: none; }
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 50px; font-size: 15px;
+      font-weight: 600; cursor: pointer; border: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .btn-primary   { background: var(--teal);   color: #fff; }
+    .btn-primary:hover { background: #134848; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,94,94,.3); }
+    .btn-secondary { background: var(--orange); color: #fff; }
+    .btn-secondary:hover { background: #c96e06; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,130,10,.3); }
+    .btn-outline { border-color: var(--teal); color: var(--teal); background: transparent; }
+    .btn-outline:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(135deg, var(--cream) 0%, #e8f4f4 100%);
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      align-items: center; padding: 80px 24px;
+      max-width: 1120px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(27,94,94,.1); color: var(--teal);
+      padding: 6px 16px; border-radius: 50px; font-size: 13px;
+      font-weight: 600; letter-spacing: .5px; margin-bottom: 20px;
+    }
+    .hero-badge::before { content: '🌾'; }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 58px); font-weight: 700;
+      color: var(--dark); margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--teal); font-style: normal; }
+    .hero-sub {
+      font-size: 18px; color: var(--gray); margin-bottom: 12px; line-height: 1.7;
+    }
+    .hero-tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px; color: var(--orange); letter-spacing: 2px;
+      margin-bottom: 32px;
+    }
+    .hero-attrs {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fff; border: 1px solid var(--teal-light);
+      color: var(--teal); padding: 6px 14px; border-radius: 50px;
+      font-size: 13px; font-weight: 500;
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-visual {
+      position: relative; display: flex; justify-content: center;
+    }
+    .hero-img-wrap {
+      width: 460px; height: 460px; border-radius: 50%;
+      background: linear-gradient(145deg, var(--teal) 0%, var(--teal-mid) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(27,94,94,.3);
+    }
+    .hero-img-inner {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+    }
+    .hero-product-icon {
+      font-size: 96px; filter: drop-shadow(0 8px 24px rgba(0,0,0,.2));
+    }
+    .hero-product-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px; letter-spacing: 3px; color: rgba(255,255,255,.8);
+    }
+    .hero-float-badge {
+      position: absolute; background: #fff; border-radius: 12px;
+      padding: 12px 16px; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;
+    }
+    .hero-float-badge.top-right  { top: 40px; right: -20px; }
+    .hero-float-badge.bot-left   { bottom: 60px; left: -20px; }
+    .hero-float-badge .fb-icon   { font-size: 20px; }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; text-align: center; }
+      .hero-attrs { justify-content: center; }
+      .hero-ctas  { justify-content: center; }
+      .hero-visual { display: none; }
+    }
+
+    /* ── ORIGIN STORY ────────────────────────────────────────── */
+    .story { background: var(--teal); color: #fff; overflow: hidden; }
+    .story-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .story-img-wrap {
+      border-radius: 20px; overflow: hidden;
+      background: rgba(255,255,255,.1);
+      min-height: 480px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    .story-img-wrap .story-emoji { font-size: 80px; }
+    .story-img-wrap p { font-size: 13px; opacity: .6; letter-spacing: 1px; }
+    .story-kicker {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .story h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 20px; color: #fff; }
+    .story p { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,.85); margin-bottom: 16px; }
+    .story-quote {
+      border-left: 4px solid var(--gold); padding: 20px 24px;
+      margin: 32px 0; background: rgba(255,255,255,.08); border-radius: 0 12px 12px 0;
+    }
+    .story-quote q {
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-style: italic; color: #fff; line-height: 1.5;
+    }
+    .story-quote cite {
+      display: block; margin-top: 12px; font-size: 13px;
+      color: var(--gold); font-style: normal; font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .story-inner { grid-template-columns: 1fr; gap: 40px; }
+      .story-img-wrap { min-height: 240px; }
+    }
+
+    /* ── PRODUCTS ────────────────────────────────────────────── */
+    .products { background: var(--cream); }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-kicker {
+      font-size: 13px; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+    }
+    .section-header h2 { font-size: clamp(28px, 4vw, 44px); color: var(--dark); }
+    .section-header p  { font-size: 17px; color: var(--gray); margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .product-card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow); transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(27,94,94,.18); }
+    .product-card-img {
+      height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+    }
+    .product-card-img .p-emoji { font-size: 64px; }
+    .product-card-body { padding: 24px; }
+    .product-card-badge {
+      display: inline-block; background: var(--teal-light); color: var(--teal);
+      padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .product-card-body h3 { font-size: 20px; margin-bottom: 8px; }
+    .product-card-body p  { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
+    .product-attrs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .product-attrs span {
+      font-size: 11px; background: var(--teal-light); color: var(--teal);
+      padding: 3px 10px; border-radius: 50px; font-weight: 500;
+    }
+    .product-card .btn { width: 100%; justify-content: center; }
+
+    @media (max-width: 900px) { .products-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+
+    /* ── WHY FF ──────────────────────────────────────────────── */
+    .why { background: #fff; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .why-card {
+      text-align: center; padding: 36px 24px;
+      border-radius: 16px; background: var(--cream);
+      border: 1px solid var(--teal-light);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .why-card:hover { border-color: var(--teal); box-shadow: var(--shadow); }
+    .why-icon { font-size: 44px; margin-bottom: 16px; }
+    .why-card h3 { font-size: 18px; margin-bottom: 8px; color: var(--teal); }
+    .why-card p  { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+    @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .why-grid { grid-template-columns: 1fr; } }
+
+    /* ── WHERE TO FIND ───────────────────────────────────────── */
+    .where { background: var(--teal-light); }
+    .where-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .stores-list { display: flex; flex-direction: column; gap: 16px; }
+    .store-card {
+      background: #fff; border-radius: 16px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: var(--shadow);
+    }
+    .store-icon { font-size: 32px; flex-shrink: 0; }
+    .store-card h3 { font-size: 18px; margin-bottom: 4px; }
+    .store-card p  { font-size: 14px; color: var(--gray); }
+    .map-wrap {
+      border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+      height: 380px; background: #d4e8e8;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .map-placeholder { text-align: center; color: var(--teal); }
+    .map-placeholder .map-icon { font-size: 56px; margin-bottom: 12px; }
+    .map-placeholder p { font-size: 14px; opacity: .7; }
+
+    @media (max-width: 768px) { .where-inner { grid-template-columns: 1fr; } }
+
+    /* ── RECIPES ─────────────────────────────────────────────── */
+    .recipes { background: var(--cream); }
+    .recipes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .recipe-card {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: var(--shadow); transition: transform var(--transition);
+    }
+    .recipe-card:hover { transform: translateY(-6px); }
+    .recipe-img {
+      height: 180px; display: flex; align-items: center;
+      justify-content: center; font-size: 56px;
+    }
+    .recipe-body { padding: 20px; }
+    .recipe-tag { font-size: 12px; color: var(--orange); font-weight: 600; margin-bottom: 6px; }
+    .recipe-body h3 { font-size: 17px; margin-bottom: 8px; }
+    .recipe-body p  { font-size: 13px; color: var(--gray); line-height: 1.6; margin-bottom: 12px; }
+    .recipe-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--gray); }
+    .recipe-meta span { display: flex; align-items: center; gap: 4px; }
+
+    @media (max-width: 768px) { .recipes-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px)  { .recipes-grid { grid-template-columns: 1fr; } }
+
+    /* ── TESTIMONIALS ────────────────────────────────────────── */
+    .testimonials { background: #fff; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testi-card {
+      background: var(--cream); border-radius: 16px; padding: 28px;
+      border: 1px solid var(--teal-light);
+      transition: box-shadow var(--transition);
+    }
+    .testi-card:hover { box-shadow: var(--shadow); }
+    .testi-stars { color: var(--gold); font-size: 18px; margin-bottom: 12px; letter-spacing: 2px; }
+    .testi-text { font-size: 15px; line-height: 1.7; color: var(--dark); margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--teal); display: flex; align-items: center;
+      justify-content: center; color: #fff; font-weight: 700; font-size: 18px;
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; font-size: 15px; }
+    .testi-role { font-size: 12px; color: var(--gray); }
+
+    @media (max-width: 768px) { .testimonials-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px)  { .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* ── CTA BAND ────────────────────────────────────────────── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--orange) 0%, #c96e06 100%);
+      padding: 72px 0; text-align: center;
+    }
+    .cta-band h2 { font-size: clamp(28px, 4vw, 44px); color: #fff; margin-bottom: 16px; }
+    .cta-band p  { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 36px; }
+    .cta-band .btn { background: #fff; color: var(--orange); font-size: 16px; padding: 16px 36px; }
+    .cta-band .btn:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,.8);
+      padding: 64px 0 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-brand .logo-circle { background: var(--teal-mid); }
+    .footer-brand .logo-text   { color: #fff; }
+    .footer-brand .logo-text small { color: rgba(255,255,255,.5); }
+    .footer-tagline {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 20px; color: var(--gold); margin: 16px 0 12px;
+    }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .footer-col h4 { font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a  { font-size: 14px; color: rgba(255,255,255,.7); transition: color var(--transition); }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,.35); }
+    .social-links { display: flex; gap: 12px; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.08); display: flex; align-items: center;
+      justify-content: center; font-size: 16px;
+      transition: background var(--transition);
+    }
+    .social-link:hover { background: var(--teal); }
+
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { justify-content: center; text-align: center; } }
+
+    /* ── FLOATING WHATSAPP ───────────────────────────────────── */
+    .float-wa {
+      position: fixed; bottom: 28px; left: 28px; z-index: 900;
+      background: #25D366; color: #fff; width: 56px; height: 56px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,.5); }
+    .float-wa-tooltip {
+      position: absolute; left: 70px; white-space: nowrap;
+      background: var(--dark); color: #fff; padding: 8px 14px;
+      border-radius: 8px; font-size: 13px; font-weight: 500;
+      opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
+    .float-wa:hover .float-wa-tooltip { opacity: 1; }
+
+    /* ── SCROLL ANIMATIONS ───────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-circle">
+          <span class="lc-top">FAMILY</span>
+          <span class="lc-mid">FARM</span>
+          <span class="lc-bot">BOL.</span>
+        </div>
+        <div class="logo-text">
+          Family Farm
+          <small>Bolivia</small>
+        </div>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="historia.html">Nuestra Historia</a></li>
+        <li><a href="producto.html">Productos</a></li>
+        <li><a href="recetas.html">Recetas</a></li>
+        <li>
+          <a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido%20%F0%9F%8C%BE"
+             target="_blank" class="btn-wa-nav">Pedir Ahora 💬</a>
+        </li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────────── -->
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">Hecho en Santa Cruz, Bolivia</div>
+        <h1>Hecho con <em>amor</em> en Santa Cruz, Bolivia.</h1>
+        <p class="hero-sub">
+          Galletas de arroz artesanales que nacieron de una cocina familiar y
+          un niño muy especial. Sin ingredientes ocultos, sin culpa.
+        </p>
+        <p class="hero-tagline">Come sin culpa.</p>
+        <div class="hero-attrs">
+          <span class="badge">✓ Sin Gluten</span>
+          <span class="badge">✓ Sin Lactosa</span>
+          <span class="badge">✓ Vegana</span>
+          <span class="badge">✓ Sin Conservantes</span>
+          <span class="badge">👶 Apta para Bebés</span>
+        </div>
+        <div class="hero-ctas">
+          <a href="https://wa.me/59175019023?text=Hola!%20Quiero%20pedir%20galletas%20Family%20Farm%20%F0%9F%8C%BE"
+             target="_blank" class="btn btn-secondary">Pedir por WhatsApp 💬</a>
+          <a href="historia.html" class="btn btn-outline">Nuestra Historia →</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <div class="hero-img-inner">
+            <div class="hero-product-icon">🍘</div>
+            <div class="hero-product-label">Galletas de Arroz</div>
+          </div>
+        </div>
+        <div class="hero-float-badge top-right">
+          <span class="fb-icon">🌿</span>
+          <div>
+            <strong style="display:block;font-size:14px;color:var(--teal)">100% Natural</strong>
+            <span style="font-size:12px;color:var(--gray);font-weight:400">Sin ingredientes ocultos</span>
+          </div>
+        </div>
+        <div class="hero-float-badge bot-left">
+          <span class="fb-icon">👶</span>
+          <div>
+            <strong style="display:block;font-size:14px;color:var(--teal)">Apta para bebés</strong>
+            <span style="font-size:12px;color:var(--gray);font-weight:400">Sin proteína de leche de vaca</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HISTORIA DE ORIGEN ───────────────────────────────────── -->
+  <section class="story section" id="historia">
+    <div class="container">
+      <div class="story-inner">
+        <div class="story-img-wrap fade-up">
+          <div class="story-emoji">👶🌾</div>
+          <p>EL AVENTURERO — SANTA CRUZ</p>
+        </div>
+        <div class="fade-up delay-2">
+          <p class="story-kicker">El corazón de la marca</p>
+          <h2>Todo empezó con un aventurero y una alergia.</h2>
+          <p>
+            Cuando nuestro hijo pequeño fue diagnosticado con alergia a la
+            proteína de la leche de vaca, empezamos a buscar opciones saludables
+            que fueran seguras para él. Lo que encontramos en el mercado estaba
+            lleno de ingredientes que no podíamos ni pronunciar.
+          </p>
+          <p>
+            Entonces decidimos hacerlas nosotros. En nuestra cocina en Santa Cruz,
+            con arroz boliviano, amor y la convicción de que comer sin culpa
+            debería ser un derecho — no un lujo.
+          </p>
+          <div class="story-quote">
+            <q>Family Farm no nació en una fábrica. Nació en nuestra cocina,
+               para nuestro hijo, y hoy es para todas las familias bolivianas.</q>
+            <cite>— Los Fundadores, Family Farm Bolivia</cite>
+          </div>
+          <a href="historia.html" class="btn btn-outline" style="border-color:#fff;color:#fff;">
+            Leer la historia completa →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTOS ────────────────────────────────────────────── -->
+  <section class="products section" id="productos">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Nuestras Galletas</p>
+        <h2>Simple. Natural. Delicioso.</h2>
+        <p>Cada galleta cuenta una historia de amor familiar y sabor boliviano auténtico.</p>
+      </div>
+      <div class="products-grid">
+
+        <div class="product-card fade-up delay-1">
+          <div class="product-card-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">
+            <div class="p-emoji">🍘</div>
+          </div>
+          <div class="product-card-body">
+            <span class="product-card-badge">⭐ Más Popular</span>
+            <h3>Galleta Original</h3>
+            <p>La clásica que lo empezó todo. Crujiente, ligera y perfecta para cualquier momento del día.</p>
+            <div class="product-attrs">
+              <span>Sin Gluten</span><span>Sin Lactosa</span><span>Vegana</span>
+            </div>
+            <a href="producto.html" class="btn btn-primary">Ver Producto →</a>
+          </div>
+        </div>
+
+        <div class="product-card fade-up delay-2">
+          <div class="product-card-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">
+            <div class="p-emoji">👶</div>
+          </div>
+          <div class="product-card-body">
+            <span class="product-card-badge" style="background:#fff8e8;color:#c96e06;">👶 Para Bebés</span>
+            <h3>Galleta Para Bebés</h3>
+            <p>Sin proteína de leche de vaca. El primer snack de tu aventurero, hecho con todo nuestro amor.</p>
+            <div class="product-attrs">
+              <span>Sin Proteína de Leche</span><span>Sin Gluten</span><span>Suave</span>
+            </div>
+            <a href="https://wa.me/59175019023?text=Hola!%20Me%20interesa%20la%20Galleta%20para%20Beb%C3%A9s%20%F0%9F%91%B6"
+               target="_blank" class="btn btn-secondary">Pedir por WhatsApp 💬</a>
+          </div>
+        </div>
+
+        <div class="product-card fade-up delay-3">
+          <div class="product-card-img" style="background:linear-gradient(145deg,#f4ede4,#e8d5c0);">
+            <div class="p-emoji">🍽️</div>
+          </div>
+          <div class="product-card-body">
+            <span class="product-card-badge" style="background:#f4ede4;color:#5a3a1a;">✨ Edición Gourmet</span>
+            <h3>Edición Gourmet</h3>
+            <p>Para el brunch del fin de semana o la cena express. Perfecta con palta, huevo pochado o mermelada de uchuva.</p>
+            <div class="product-attrs">
+              <span>Gourmet</span><span>Versátil</span><span>Sin Gluten</span>
+            </div>
+            <a href="https://wa.me/59175019023?text=Hola!%20Me%20interesa%20la%20Edici%C3%B3n%20Gourmet%20%F0%9F%8D%BD%EF%B8%8F"
+               target="_blank" class="btn btn-outline">Consultar Disponibilidad</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── POR QUÉ FAMILY FARM ──────────────────────────────────── -->
+  <section class="why section" id="por-que">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Por qué elegirnos</p>
+        <h2>Sin secretos. Solo ingredientes honestos.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-icon">🌾</div>
+          <h3>Sin Gluten</h3>
+          <p>100% libre de gluten. Aptas para personas celíacas y quienes prefieren evitarlo.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-icon">🥛</div>
+          <h3>Sin Lactosa</h3>
+          <p>Sin ningún derivado lácteo. Ideales para intolerantes y para bebés con APLV.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-icon">🌿</div>
+          <h3>100% Vegana</h3>
+          <p>No usamos ningún ingrediente de origen animal. Buena para ti y para el planeta.</p>
+        </div>
+        <div class="why-card fade-up delay-1">
+          <div class="why-icon">🚫</div>
+          <h3>Sin Conservantes</h3>
+          <p>Sin aditivos artificiales, colorantes ni conservantes. Lo que ves es lo que comes.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-icon">👶</div>
+          <h3>Apta para Bebés</h3>
+          <p>Sin proteína de leche de vaca. El snack perfecto para los primeros años de tu aventurero.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-icon">📍</div>
+          <h3>Hecha en Bolivia</h3>
+          <p>Con arroz boliviano, en Santa Cruz, por una familia boliviana. Orgullo local en cada mordida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DÓNDE ENCONTRARNOS ───────────────────────────────────── -->
+  <section class="where section" id="donde">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Puntos de Venta</p>
+        <h2>Encuéntranos en Santa Cruz</h2>
+        <p>También puedes pedir directo por WhatsApp y te llevamos a domicilio.</p>
+      </div>
+      <div class="where-inner">
+        <div class="stores-list">
+          <div class="store-card fade-up delay-1">
+            <div class="store-icon">🛒</div>
+            <div>
+              <h3>Macarena</h3>
+              <p>Tienda de productos naturales y orgánicos · Santa Cruz, Bolivia</p>
+            </div>
+          </div>
+          <div class="store-card fade-up delay-2">
+            <div class="store-icon">🌿</div>
+            <div>
+              <h3>Greenhouse</h3>
+              <p>Mercado saludable y gourmet · Santa Cruz, Bolivia</p>
+            </div>
+          </div>
+          <div class="store-card fade-up delay-3">
+            <div class="store-icon">🥗</div>
+            <div>
+              <h3>Zucchini</h3>
+              <p>Restaurante y tienda de alimentos naturales · Santa Cruz, Bolivia</p>
+            </div>
+          </div>
+          <div class="store-card fade-up delay-4" style="border:2px solid var(--teal);">
+            <div class="store-icon">💬</div>
+            <div>
+              <h3>Pedidos por WhatsApp</h3>
+              <p>+591 75019023 — Te llevamos directo a tu puerta.</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-wrap fade-up delay-2">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120918.72082571!2d-63.2260!3d-17.7833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1e7c5f76e6e4d%3A0x4f8e3a6e4e4e4e4e!2sSanta%20Cruz%20de%20la%20Sierra!5e0!3m2!1ses!2sbo!4v1620000000000!5m2!1ses!2sbo"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Santa Cruz de la Sierra, Bolivia"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RECETAS DESTACADAS ────────────────────────────────────── -->
+  <section class="recipes section" id="recetas">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">De nuestra mesa a la tuya</p>
+        <h2>Recetas que enamoran</h2>
+        <p>Simples, rápidas y deliciosas. Porque comer bien no tiene que ser complicado.</p>
+      </div>
+      <div class="recipes-grid">
+
+        <div class="recipe-card fade-up delay-1">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+          <div class="recipe-body">
+            <p class="recipe-tag">Desayuno · Dulce</p>
+            <h3>Galleta con Mermelada de Uchuva</h3>
+            <p>En colaboración con @dulcesjessen. El balance perfecto entre crujiente y dulce.</p>
+            <div class="recipe-meta">
+              <span>⏱ 2 min</span>
+              <span>🌿 Vegana</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-card fade-up delay-2">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
+          <div class="recipe-body">
+            <p class="recipe-tag">Cena Express · Gourmet</p>
+            <h3>Cena Gourmet en 5 Minutos</h3>
+            <p>Jamón ahumado + huevo pochado + tomates secos + brotes frescos. Después de un día largo, mereces esto.</p>
+            <div class="recipe-meta">
+              <span>⏱ 5 min</span>
+              <span>⭐ Gourmet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-card fade-up delay-3">
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8bbd0);">👶</div>
+          <div class="recipe-body">
+            <p class="recipe-tag">Para Bebés · Dulce</p>
+            <h3>Primer Snack del Aventurero</h3>
+            <p>Frambuesas o moras con galleta Family Farm. La primera galleta de tu bebé — sin proteína de leche, sin culpa.</p>
+            <div class="recipe-meta">
+              <span>⏱ 1 min</span>
+              <span>👶 0+ meses</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div style="text-align:center;margin-top:40px;" class="fade-up">
+        <a href="recetas.html" class="btn btn-primary">Ver todas las recetas →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIOS ───────────────────────────────────────────── -->
+  <section class="testimonials section" id="testimonios">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Lo que dice la familia</p>
+        <h2>Cada galleta, una historia.</h2>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testi-card fade-up delay-1">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Mi hija tiene APLV y siempre fue difícil encontrar snacks seguros para ella. Family Farm ha sido una bendición. ¡Y le encantan!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">M</div>
+            <div>
+              <p class="testi-name">María Eugenia V.</p>
+              <p class="testi-role">Mamá · Santa Cruz</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card fade-up delay-2">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Las compro en Greenhouse todas las semanas. La versión gourmet con palta y tomate cherry es mi desayuno favorito antes de entrenar."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:var(--orange);">R</div>
+            <div>
+              <p class="testi-name">Rodrigo S.</p>
+              <p class="testi-role">Deportista · Santa Cruz</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card fade-up delay-3">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Conocí la historia de la marca por Instagram y me emocionó muchísimo. Se nota que hay amor en cada paquete. Pido cada semana por WhatsApp."</p>
+          <div class="testi-author">
+            <div class="testi-avatar" style="background:var(--teal-mid);">C</div>
+            <div>
+              <p class="testi-name">Carla M.</p>
+              <p class="testi-role">Nutricionista · Santa Cruz</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ──────────────────────────────────────────────── -->
+  <section class="cta-band">
+    <div class="container">
+      <h2 class="fade-up">¿Lista/o para comer sin culpa?</h2>
+      <p class="fade-up delay-1">Haz tu primer pedido hoy. Te enviamos directo en Santa Cruz.</p>
+      <a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!%20Quiero%20hacer%20mi%20primer%20pedido%20%F0%9F%8C%BE%20%F0%9F%8D%AA"
+         target="_blank" class="btn fade-up delay-2">
+        Pedir por WhatsApp 💬
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-circle">
+              <span class="lc-top">FAMILY</span>
+              <span class="lc-mid">FARM</span>
+              <span class="lc-bot">BOL.</span>
+            </div>
+            <div class="logo-text">Family Farm <small>Bolivia</small></div>
+          </a>
+          <p class="footer-tagline">"Come sin culpa."</p>
+          <p>Galletas de arroz artesanales hechas con amor en Santa Cruz, Bolivia. Sin gluten, sin lactosa, veganas y aptas para bebés.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Páginas</h4>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="historia.html">Nuestra Historia</a></li>
+            <li><a href="producto.html">Productos</a></li>
+            <li><a href="recetas.html">Recetas</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Dónde comprar</h4>
+          <ul>
+            <li><a href="#donde">Macarena</a></li>
+            <li><a href="#donde">Greenhouse</a></li>
+            <li><a href="#donde">Zucchini</a></li>
+            <li><a href="https://wa.me/59175019023" target="_blank">WhatsApp 💬</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/59175019023" target="_blank">+591 75019023</a></li>
+            <li><a href="https://instagram.com/familyfarm_bolivia" target="_blank">@familyfarm_bolivia</a></li>
+            <li><a href="#donde">Santa Cruz, Bolivia</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Family Farm Bolivia · Hecho con 💛 en Santa Cruz</p>
+        <div class="social-links">
+          <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="social-link" title="Instagram">📸</a>
+          <a href="https://wa.me/59175019023" target="_blank" class="social-link" title="WhatsApp">💬</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── FLOATING WHATSAPP ─────────────────────────────────────── -->
+  <a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!%20%F0%9F%8C%BE"
+     target="_blank" class="float-wa" title="Pedir por WhatsApp">
+    💬
+    <span class="float-wa-tooltip">Pedir por WhatsApp</span>
+  </a>
+
+  <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
+  <script src="chatbot.js" defer></script>
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Scroll animations (IntersectionObserver)
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Navbar shadow on scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').style.boxShadow =
+        window.scrollY > 20 ? '0 2px 20px rgba(27,94,94,.15)' : 'none';
+    });
+  </script>
+</body>
+</html>

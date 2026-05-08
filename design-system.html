@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — Family Farm Bolivia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:       #1B5E5E; --teal-mid: #2A7E7E; --teal-light: #E4F4F4;
+      --orange:     #E8820A; --orange-soft: #FFA63C;
+      --gold:       #F0B429; --cream: #FDFAF5; --dark: #131A1A; --gray: #5A6A6A;
+      --shadow: 0 4px 24px rgba(27,94,94,.12); --transition: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: #f4f4f4; color: var(--dark); }
+    h1,h2,h3,h4,h5 { font-family: 'Playfair Display', serif; }
+
+    /* LAYOUT */
+    .ds-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--dark); padding: 0 32px;
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto;
+    }
+    .ds-nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gold); letter-spacing: 2px; padding: 16px 24px 16px 0; white-space: nowrap; }
+    .ds-nav a { color: rgba(255,255,255,.6); font-size: 13px; font-weight: 500; padding: 16px 16px; white-space: nowrap; text-decoration: none; transition: color var(--transition); }
+    .ds-nav a:hover { color: #fff; }
+
+    .ds-main { max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; }
+    .ds-section { margin-bottom: 72px; }
+    .ds-section-title {
+      font-size: 11px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 24px;
+      padding-bottom: 12px; border-bottom: 1px solid #e0e0e0;
+    }
+    .ds-section h2 { font-size: 32px; color: var(--dark); margin-bottom: 8px; }
+    .ds-section > p { font-size: 15px; color: var(--gray); margin-bottom: 32px; line-height: 1.6; }
+    .ds-card { background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+
+    /* ── 1. COLORS ────────────────────────────────────────────── */
+    .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .color-swatch { border-radius: 12px; overflow: hidden; }
+    .swatch-block { height: 100px; }
+    .swatch-info { padding: 12px; background: #fff; border: 1px solid #e8e8e8; border-top: none; border-radius: 0 0 12px 12px; }
+    .swatch-name { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+    .swatch-hex  { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gray); }
+    .swatch-use  { font-size: 11px; color: var(--gray); margin-top: 4px; line-height: 1.4; }
+    @media (max-width: 768px) { .color-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ── 2. TYPOGRAPHY ───────────────────────────────────────── */
+    .type-row { display: flex; align-items: baseline; gap: 24px; padding: 20px 0; border-bottom: 1px solid #f0f0f0; }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta { width: 140px; flex-shrink: 0; }
+    .type-meta .t-name  { font-size: 12px; font-weight: 600; color: var(--gray); }
+    .type-meta .t-spec  { font-size: 11px; color: #aaa; margin-top: 2px; }
+    .type-sample { flex: 1; }
+    .h1-sample { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.2; color: var(--dark); }
+    .h2-sample { font-family: 'Playfair Display', serif; font-size: 40px; line-height: 1.25; }
+    .h3-sample { font-family: 'Playfair Display', serif; font-size: 28px; }
+    .h4-sample { font-family: 'Playfair Display', serif; font-size: 22px; }
+    .h5-sample { font-family: 'Playfair Display', serif; font-size: 18px; }
+    .body-sample { font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; color: var(--gray); }
+    .small-sample { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--gray); }
+    .caption-sample { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gray); letter-spacing: .5px; }
+    .display-sample { font-family: 'Bebas Neue', sans-serif; font-size: 64px; letter-spacing: 4px; color: var(--teal); }
+    @media (max-width: 600px) { .type-row { flex-direction: column; gap: 8px; } .type-meta { width: auto; } }
+
+    /* ── 3. BUTTONS ─────────────────────────────────────────── */
+    .btn-showcase { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 50px; font-size: 15px;
+      font-weight: 600; cursor: pointer; border: 2px solid transparent;
+      transition: all var(--transition); font-family: 'DM Sans', sans-serif;
+    }
+    .btn-primary   { background: var(--teal);   color: #fff; }
+    .btn-primary:hover { background: #134848; }
+    .btn-secondary { background: var(--orange); color: #fff; }
+    .btn-secondary:hover { background: #c96e06; }
+    .btn-outline   { border-color: var(--teal); color: var(--teal); background: transparent; }
+    .btn-outline:hover { background: var(--teal); color: #fff; }
+    .btn-ghost     { color: var(--teal); background: transparent; border-color: transparent; }
+    .btn-ghost:hover { background: var(--teal-light); }
+    .btn-wa        { background: #25D366; color: #fff; }
+    .btn-wa:hover  { background: #1da851; }
+    .btn-gold      { background: var(--gold); color: var(--dark); }
+    .btn-sm  { padding: 8px 18px; font-size: 13px; }
+    .btn-lg  { padding: 16px 36px; font-size: 17px; }
+
+    /* ── 4. CARDS ───────────────────────────────────────────── */
+    .card-showcase { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow); transition: transform var(--transition);
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+    .card-body { padding: 20px; }
+    .card-body h3 { font-size: 18px; margin-bottom: 6px; }
+    .card-body p  { font-size: 14px; color: var(--gray); }
+    .recipe-card-preview { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+    .recipe-img-p { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+    .recipe-body-p { padding: 16px; }
+    .recipe-body-p h4 { font-size: 16px; margin-bottom: 4px; }
+    .recipe-body-p p  { font-size: 13px; color: var(--gray); }
+    .testi-preview { background: var(--cream); border-radius: 16px; padding: 20px; border: 1px solid var(--teal-light); }
+    .testi-stars-p { color: var(--gold); font-size: 16px; margin-bottom: 8px; }
+    .testi-preview p { font-size: 14px; font-style: italic; margin-bottom: 12px; line-height: 1.6; }
+    .testi-author-p { display: flex; align-items: center; gap: 8px; }
+    .testi-av { width: 36px; height: 36px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+    .testi-info h5 { font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .testi-info p  { font-size: 12px; color: var(--gray); }
+    @media (max-width: 768px) { .card-showcase { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .card-showcase { grid-template-columns: 1fr; } }
+
+    /* ── 5. BADGES ─────────────────────────────────────────── */
+    .badge-showcase { display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 600;
+    }
+    .badge-teal   { background: var(--teal-light); color: var(--teal); }
+    .badge-orange { background: #fff8f0; color: var(--orange); border: 1.5px solid var(--orange); }
+    .badge-green  { background: #e8f5e8; color: #2d7a2d; }
+    .badge-gold   { background: #fff9e8; color: #8B6914; border: 1.5px solid var(--gold); }
+    .badge-dark   { background: var(--dark); color: #fff; }
+    .badge-pill   { background: var(--teal); color: #fff; border-radius: 50px; }
+
+    /* ── 6. FORMS ──────────────────────────────────────────── */
+    .form-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px 16px; border: 1.5px solid #e0e0e0; border-radius: 12px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--dark);
+      background: var(--cream); transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--teal); }
+    .form-group.error input { border-color: #d32f2f; }
+    .form-err { font-size: 12px; color: #d32f2f; }
+    .form-check { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .form-check input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--teal); cursor: pointer; }
+    @media (max-width: 600px) { .form-showcase { grid-template-columns: 1fr; } }
+
+    /* ── 7. ALERTS ─────────────────────────────────────────── */
+    .alert { display: flex; align-items: flex-start; gap: 12px; padding: 16px 20px; border-radius: 12px; margin-bottom: 10px; font-size: 14px; }
+    .alert-icon { font-size: 20px; flex-shrink: 0; }
+    .alert-body strong { display: block; font-weight: 600; margin-bottom: 2px; }
+    .alert-success { background: #e8f5e8; border-left: 4px solid #2d7a2d; }
+    .alert-error   { background: #fce8e8; border-left: 4px solid #d32f2f; }
+    .alert-info    { background: var(--teal-light); border-left: 4px solid var(--teal); }
+    .alert-warning { background: #fff9e8; border-left: 4px solid var(--gold); }
+
+    /* ── 8. SPACING ─────────────────────────────────────────── */
+    .spacing-grid { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+    .spacing-block { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .spacing-box   { background: var(--teal-light); border: 1px solid var(--teal); border-radius: 4px; }
+    .spacing-label { font-size: 11px; color: var(--gray); font-weight: 600; }
+
+    /* ── 9. VOICE & TONE ──────────────────────────────────── */
+    .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .voice-col h4 { font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid; }
+    .voice-col.good h4 { color: #2d7a2d; border-color: #2d7a2d; }
+    .voice-col.bad  h4 { color: #d32f2f; border-color: #d32f2f; }
+    .voice-item { display: flex; align-items: flex-start; gap: 8px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; line-height: 1.5; }
+    .voice-item:last-child { border-bottom: none; }
+    .voice-item .vi-icon { flex-shrink: 0; }
+    @media (max-width: 600px) { .voice-grid { grid-template-columns: 1fr; } }
+
+    /* ── 10. PATTERNS ──────────────────────────────────────── */
+    .hero-preview {
+      background: linear-gradient(135deg, var(--cream) 0%, #e8f4f4 100%);
+      border-radius: 16px; padding: 40px; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+    }
+    .hero-preview h2 { font-size: 28px; color: var(--dark); margin-bottom: 12px; }
+    .hero-preview p  { font-size: 15px; color: var(--gray); margin-bottom: 20px; }
+    .hero-visual-p {
+      background: var(--teal); border-radius: 50%; height: 200px;
+      display: flex; align-items: center; justify-content: center; font-size: 64px;
+    }
+    @media (max-width: 600px) { .hero-preview { grid-template-columns: 1fr; } .hero-visual-p { display: none; } }
+
+    /* ICONOGRAPHY */
+    .icon-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+    .icon-item { text-align: center; padding: 16px 12px; background: var(--cream); border-radius: 12px; min-width: 80px; }
+    .icon-item .ic { font-size: 32px; margin-bottom: 6px; }
+    .icon-item p { font-size: 11px; color: var(--gray); }
+
+    /* FOOTER PATTERN */
+    .footer-preview { background: var(--dark); border-radius: 16px; padding: 32px; color: rgba(255,255,255,.7); }
+    .footer-preview-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 24px; }
+    .footer-preview h4 { font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; font-family: 'DM Sans', sans-serif; }
+    .footer-preview ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-preview li { font-size: 13px; }
+    .footer-preview .ft-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 18px; color: var(--gold); margin-bottom: 8px; }
+    .footer-preview .ft-desc { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.6; }
+    .footer-preview-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px; font-size: 12px; color: rgba(255,255,255,.3); }
+    @media (max-width: 600px) { .footer-preview-grid { grid-template-columns: 1fr; } }
+
+    /* WA MESSAGES */
+    .wa-examples { display: flex; flex-direction: column; gap: 12px; }
+    .wa-msg { background: #DCF8C6; border-radius: 16px 16px 4px 16px; padding: 12px 16px; max-width: 340px; align-self: flex-end; }
+    .wa-msg p { font-size: 14px; line-height: 1.5; }
+    .wa-tag { font-size: 11px; color: #999; margin-top: 4px; }
+
+    @media (max-width: 480px) { .ds-main { padding: 32px 16px 60px; } .ds-nav { padding: 0 16px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="ds-nav">
+    <span class="ds-nav-logo">FF DESIGN SYSTEM</span>
+    <a href="#colores">Colores</a>
+    <a href="#tipografia">Tipografía</a>
+    <a href="#botones">Botones</a>
+    <a href="#cards">Cards</a>
+    <a href="#badges">Badges</a>
+    <a href="#formularios">Formularios</a>
+    <a href="#alertas">Alertas</a>
+    <a href="#espaciado">Espaciado</a>
+    <a href="#iconos">Iconos</a>
+    <a href="#patrones">Patrones</a>
+    <a href="#voz">Voz</a>
+  </nav>
+
+  <div class="ds-main">
+
+    <!-- HEADER -->
+    <div style="margin-bottom:48px;">
+      <p style="font-size:13px;font-weight:600;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Documentación oficial</p>
+      <h1 style="font-size:48px;color:var(--dark);margin-bottom:12px;">Family Farm Bolivia<br>Design System</h1>
+      <p style="font-size:18px;color:var(--gray);max-width:560px;line-height:1.7;">
+        La guía de referencia oficial para todos los elementos visuales de la marca. Use estos tokens, componentes y patrones para mantener consistencia en todas las comunicaciones.
+      </p>
+    </div>
+
+    <!-- 1. COLORS -->
+    <div class="ds-section" id="colores">
+      <p class="ds-section-title">01 — Paleta de Colores</p>
+      <div class="ds-card">
+        <div class="color-grid">
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#1B5E5E;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Verde Familia</p>
+              <p class="swatch-hex">#1B5E5E · var(--teal)</p>
+              <p class="swatch-use">Color primario. Navbar, botones principales, títulos de sección.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#2A7E7E;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Teal Campo</p>
+              <p class="swatch-hex">#2A7E7E · var(--teal-mid)</p>
+              <p class="swatch-use">Secundario. Hover states, avatares, acentos.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#E4F4F4;border:1px solid #cde8e8;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Bruma Verde</p>
+              <p class="swatch-hex">#E4F4F4 · var(--teal-light)</p>
+              <p class="swatch-use">Fondos de sección, badges, separadores.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#E8820A;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Naranja Cosecha</p>
+              <p class="swatch-hex">#E8820A · var(--orange)</p>
+              <p class="swatch-use">CTA principal, botones de acción, WhatsApp.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#FFA63C;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Flama Cálida</p>
+              <p class="swatch-hex">#FFA63C · var(--orange-soft)</p>
+              <p class="swatch-use">Naranja secundario, hover naranja.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#F0B429;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Oro Uchuva</p>
+              <p class="swatch-hex">#F0B429 · var(--gold)</p>
+              <p class="swatch-use">Highlights, estrellas, kickers, quotes.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#FDFAF5;border:1px solid #e8e4de;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Crema</p>
+              <p class="swatch-hex">#FDFAF5 · var(--cream)</p>
+              <p class="swatch-use">Fondo principal del sitio, interior de cards.</p>
+            </div>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch-block" style="background:#131A1A;"></div>
+            <div class="swatch-info">
+              <p class="swatch-name">Tierra Oscura</p>
+              <p class="swatch-hex">#131A1A · var(--dark)</p>
+              <p class="swatch-use">Texto principal, footer, fondos oscuros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. TYPOGRAPHY -->
+    <div class="ds-section" id="tipografia">
+      <p class="ds-section-title">02 — Tipografía</p>
+      <div class="ds-card">
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">Display</p><p class="t-spec">Bebas Neue · 64px</p></div>
+          <div class="type-sample"><p class="display-sample">Come sin culpa.</p></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">H1</p><p class="t-spec">Playfair Display · 700 · 52px</p></div>
+          <div class="type-sample"><h1 class="h1-sample">Family Farm Bolivia</h1></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">H2</p><p class="t-spec">Playfair Display · 700 · 40px</p></div>
+          <div class="type-sample"><h2 class="h2-sample">Hecho con amor en Santa Cruz.</h2></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">H3</p><p class="t-spec">Playfair Display · 600 · 28px</p></div>
+          <div class="type-sample"><h3 class="h3-sample">Galleta de Arroz Original</h3></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">H4</p><p class="t-spec">Playfair Display · 600 · 22px</p></div>
+          <div class="type-sample"><h4 class="h4-sample">Receta Gourmet en 5 Minutos</h4></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">H5</p><p class="t-spec">Playfair Display · 400 · 18px</p></div>
+          <div class="type-sample"><h5 class="h5-sample">Sin gluten · Sin lactosa · Vegana</h5></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">Body</p><p class="t-spec">DM Sans · 400 · 16px · lh 1.7</p></div>
+          <div class="type-sample"><p class="body-sample">Nuestras galletas nacieron en una cocina familiar en Santa Cruz, Bolivia, cuando buscábamos opciones seguras para nuestro hijo con APLV. Sin ingredientes ocultos, sin culpa.</p></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">Small</p><p class="t-spec">DM Sans · 400 · 14px</p></div>
+          <div class="type-sample"><p class="small-sample">Disponible en Macarena · Greenhouse · Zucchini · Santa Cruz, Bolivia</p></div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><p class="t-name">Caption</p><p class="t-spec">DM Sans · 400 · 12px</p></div>
+          <div class="type-sample"><p class="caption-sample">* Los valores nutricionales son aproximados. Consultar la etiqueta del producto para información actualizada.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. BUTTONS -->
+    <div class="ds-section" id="botones">
+      <p class="ds-section-title">03 — Botones</p>
+      <div class="ds-card">
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:16px;letter-spacing:1px;">TAMAÑO NORMAL</p>
+        <div class="btn-showcase" style="margin-bottom:28px;">
+          <button class="btn btn-primary">Primario</button>
+          <button class="btn btn-secondary">Secundario</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-wa">WhatsApp 💬</button>
+          <button class="btn btn-gold">Gold</button>
+        </div>
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:16px;letter-spacing:1px;">TAMAÑOS</p>
+        <div class="btn-showcase" style="margin-bottom:28px;">
+          <button class="btn btn-primary btn-sm">Pequeño</button>
+          <button class="btn btn-primary">Normal</button>
+          <button class="btn btn-primary btn-lg">Grande</button>
+        </div>
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:16px;letter-spacing:1px;">CON ICONO</p>
+        <div class="btn-showcase">
+          <button class="btn btn-secondary">Pedir por WhatsApp 💬</button>
+          <button class="btn btn-primary">Ver Recetas 🍽️</button>
+          <button class="btn btn-outline">Nuestra Historia →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CARDS -->
+    <div class="ds-section" id="cards">
+      <p class="ds-section-title">04 — Cards</p>
+      <div class="ds-card">
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:20px;letter-spacing:1px;">PRODUCT · RECIPE · TESTIMONIAL</p>
+        <div class="card-showcase">
+          <!-- Product card -->
+          <div class="card">
+            <div class="card-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍘</div>
+            <div class="card-body">
+              <span style="display:inline-block;background:var(--teal-light);color:var(--teal);padding:3px 12px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:8px;">⭐ Más Popular</span>
+              <h3>Galleta Original</h3>
+              <p>Sin gluten · Sin lactosa · Vegana · Hecha en Bolivia</p>
+            </div>
+          </div>
+          <!-- Recipe card -->
+          <div class="recipe-card-preview">
+            <div class="recipe-img-p" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+            <div class="recipe-body-p">
+              <p style="font-size:12px;color:var(--orange);font-weight:600;margin-bottom:4px;">Desayuno · Dulce · 2 min</p>
+              <h4>Galleta con Mermelada de Uchuva</h4>
+              <p>Con @dulcesjessen. El balance perfecto entre crujiente y dulce.</p>
+            </div>
+          </div>
+          <!-- Testi card -->
+          <div class="testi-preview">
+            <div class="testi-stars-p">★★★★★</div>
+            <p>"Mi hija tiene APLV y estas son las únicas galletas que le puedo dar con total tranquilidad."</p>
+            <div class="testi-author-p">
+              <div class="testi-av">M</div>
+              <div class="testi-info">
+                <h5>María Eugenia V.</h5>
+                <p>Mamá · Santa Cruz</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. BADGES -->
+    <div class="ds-section" id="badges">
+      <p class="ds-section-title">05 — Badges & Pills</p>
+      <div class="ds-card">
+        <div class="badge-showcase">
+          <span class="badge badge-teal">✓ Sin Gluten</span>
+          <span class="badge badge-teal">✓ Sin Lactosa</span>
+          <span class="badge badge-green">🌿 Vegana</span>
+          <span class="badge badge-orange">👶 Apta para Bebés</span>
+          <span class="badge badge-gold">⭐ Más Popular</span>
+          <span class="badge badge-dark">📍 Hecha en Bolivia</span>
+          <span class="badge badge-pill">✨ Gourmet</span>
+          <span class="badge" style="background:#fce4ec;color:#c2185b;">🤝 Colaboración</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. FORMS -->
+    <div class="ds-section" id="formularios">
+      <p class="ds-section-title">06 — Formularios</p>
+      <div class="ds-card">
+        <div class="form-showcase">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" placeholder="Ej: María García" />
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" placeholder="+591 7..." />
+          </div>
+          <div class="form-group error">
+            <label>Email (con error)</label>
+            <input type="email" placeholder="correo@ejemplo.com" value="correo-invalido" />
+            <span class="form-err">Por favor ingresa un email válido.</span>
+          </div>
+          <div class="form-group">
+            <label>Ciudad</label>
+            <select>
+              <option>Santa Cruz de la Sierra</option>
+              <option>Cochabamba</option>
+              <option>La Paz</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column: 1/-1;">
+            <label>Mensaje</label>
+            <textarea rows="3" placeholder="Escribe tu consulta..."></textarea>
+          </div>
+          <div class="form-group" style="grid-column: 1/-1;">
+            <label class="form-check">
+              <input type="checkbox" />
+              Acepto recibir novedades de Family Farm Bolivia por WhatsApp
+            </label>
+          </div>
+          <div>
+            <button class="btn btn-primary">Enviar mensaje 🌾</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ALERTS -->
+    <div class="ds-section" id="alertas">
+      <p class="ds-section-title">07 — Alertas</p>
+      <div class="ds-card">
+        <div class="alert alert-success">
+          <span class="alert-icon">✅</span>
+          <div class="alert-body">
+            <strong>¡Pedido confirmado!</strong>
+            Tu pedido fue recibido. Te contactamos a la brevedad por WhatsApp.
+          </div>
+        </div>
+        <div class="alert alert-error">
+          <span class="alert-icon">❌</span>
+          <div class="alert-body">
+            <strong>Error al enviar el formulario</strong>
+            Por favor completa todos los campos requeridos.
+          </div>
+        </div>
+        <div class="alert alert-info">
+          <span class="alert-icon">ℹ️</span>
+          <div class="alert-body">
+            <strong>Disponibilidad limitada</strong>
+            La Edición Gourmet tiene disponibilidad limitada. Consulta por WhatsApp.
+          </div>
+        </div>
+        <div class="alert alert-warning">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-body">
+            <strong>Consultar disponibilidad</strong>
+            Los precios pueden variar. Confirma con nuestro equipo antes de pedir.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. SPACING -->
+    <div class="ds-section" id="espaciado">
+      <p class="ds-section-title">08 — Sistema de Espaciado (Base 8px)</p>
+      <div class="ds-card">
+        <div class="spacing-grid">
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:8px;height:8px;"></div>
+            <p class="spacing-label">4px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:8px;height:8px;"></div>
+            <p class="spacing-label">8px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:16px;height:16px;"></div>
+            <p class="spacing-label">16px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:24px;height:24px;"></div>
+            <p class="spacing-label">24px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:32px;height:32px;"></div>
+            <p class="spacing-label">32px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:48px;height:48px;"></div>
+            <p class="spacing-label">48px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:64px;height:64px;"></div>
+            <p class="spacing-label">64px</p>
+          </div>
+          <div class="spacing-block">
+            <div class="spacing-box" style="width:80px;height:80px;"></div>
+            <p class="spacing-label">80px</p>
+          </div>
+        </div>
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
+          <p style="font-size:13px;font-weight:600;color:var(--gray);">Contenedores</p>
+          <p style="font-size:14px;color:var(--dark);">Max-width: <strong>1120px</strong> (desktop) · Padding: <strong>24px</strong> lateral</p>
+          <p style="font-size:14px;color:var(--dark);">Breakpoints: Mobile <strong>&lt;768px</strong> · Tablet <strong>768–1024px</strong> · Desktop <strong>&gt;1024px</strong></p>
+          <p style="font-size:14px;color:var(--dark);">Border-radius base: <strong>12px</strong> · Cards: <strong>20px</strong> · Botones: <strong>50px</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. ICONOGRAPHY -->
+    <div class="ds-section" id="iconos">
+      <p class="ds-section-title">09 — Iconografía</p>
+      <div class="ds-card">
+        <p style="font-size:14px;color:var(--gray);margin-bottom:24px;">Set de emojis/íconos aprobados para la marca. Usar con moderación y siempre en contexto.</p>
+        <div class="icon-grid">
+          <div class="icon-item"><div class="ic">🌾</div><p>Marca / Farmy</p></div>
+          <div class="icon-item"><div class="ic">💛</div><p>Amor / Familia</p></div>
+          <div class="icon-item"><div class="ic">🌿</div><p>Natural / Vegano</p></div>
+          <div class="icon-item"><div class="ic">🍘</div><p>Galleta</p></div>
+          <div class="icon-item"><div class="ic">💬</div><p>WhatsApp / Chat</p></div>
+          <div class="icon-item"><div class="ic">📍</div><p>Santa Cruz</p></div>
+          <div class="icon-item"><div class="ic">👶</div><p>Para Bebés</p></div>
+          <div class="icon-item"><div class="ic">❤️</div><p>Amor / Pasión</p></div>
+          <div class="icon-item"><div class="ic">✓</div><p>Atributo OK</p></div>
+          <div class="icon-item"><div class="ic">🚫</div><p>Sin / Prohibido</p></div>
+          <div class="icon-item"><div class="ic">⭐</div><p>Premium</p></div>
+          <div class="icon-item"><div class="ic">📸</div><p>Instagram</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. PATTERNS -->
+    <div class="ds-section" id="patrones">
+      <p class="ds-section-title">10 — Patrones de Diseño</p>
+      <div class="ds-card" style="margin-bottom:20px;">
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:20px;letter-spacing:1px;">HERO SECTION — Variante 1 (Claro)</p>
+        <div class="hero-preview">
+          <div>
+            <p style="font-size:12px;font-weight:600;letter-spacing:2px;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Hecho en Santa Cruz</p>
+            <h2>Come sin culpa.<br>Hecho con amor.</h2>
+            <p>Galletas de arroz artesanales. Sin gluten, sin lactosa, veganas.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-secondary btn-sm">Pedir por WhatsApp 💬</button>
+              <button class="btn btn-outline btn-sm">Ver Historia →</button>
+            </div>
+          </div>
+          <div class="hero-visual-p">🍘</div>
+        </div>
+      </div>
+      <div class="ds-card" style="margin-bottom:20px;">
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:20px;letter-spacing:1px;">FOOTER PATTERN</p>
+        <div class="footer-preview">
+          <div class="footer-preview-grid">
+            <div>
+              <p class="ft-tagline">"Come sin culpa."</p>
+              <p class="ft-desc">Galletas de arroz artesanales hechas con amor en Santa Cruz, Bolivia. Sin gluten, sin lactosa, veganas y aptas para bebés.</p>
+            </div>
+            <div>
+              <h4>Páginas</h4>
+              <ul>
+                <li>Inicio</li><li>Nuestra Historia</li>
+                <li>Productos</li><li>Recetas</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Contacto</h4>
+              <ul>
+                <li>+591 75019023</li>
+                <li>@familyfarm_bolivia</li>
+                <li>Santa Cruz, Bolivia</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-preview-bottom">
+            © 2024 Family Farm Bolivia · Hecho con 💛 en Santa Cruz
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. VOICE & TONE -->
+    <div class="ds-section" id="voz">
+      <p class="ds-section-title">11 — Voz y Tono</p>
+      <div class="ds-card" style="margin-bottom:20px;">
+        <div class="voice-grid">
+          <div class="voice-col good">
+            <h4>✅ Correcto — Así hablamos</h4>
+            <div class="voice-item"><span class="vi-icon">✅</span> "Come sin culpa. Hecho con amor en Santa Cruz."</div>
+            <div class="voice-item"><span class="vi-icon">✅</span> "Tu bebé merece lo mejor — sin proteína de leche, sin culpa."</div>
+            <div class="voice-item"><span class="vi-icon">✅</span> "¿Tenés hambre? En 5 minutos armás una cena que vas a querer repetir."</div>
+            <div class="voice-item"><span class="vi-icon">✅</span> "Hecha con arroz boliviano, en Santa Cruz, por una familia boliviana."</div>
+            <div class="voice-item"><span class="vi-icon">✅</span> "Sin ingredientes ocultos. Nunca."</div>
+          </div>
+          <div class="voice-col bad">
+            <h4>❌ Evitar — Así no hablamos</h4>
+            <div class="voice-item"><span class="vi-icon">❌</span> "Producto 100% orgánico certificado y libre de alérgenos." (Corporativo, frío)</div>
+            <div class="voice-item"><span class="vi-icon">❌</span> "Nuestro alimento funcional cumple estándares internacionales." (Fábrica)</div>
+            <div class="voice-item"><span class="vi-icon">❌</span> "Snack saludable bajo en calorías." (Genérico, no es nuestra voz)</div>
+            <div class="voice-item"><span class="vi-icon">❌</span> "Contáctenos para mayor información." (Impersonal)</div>
+            <div class="voice-item"><span class="vi-icon">❌</span> "Innovador producto alimenticio artesanal." (Jerga de marketing)</div>
+          </div>
+        </div>
+      </div>
+      <div class="ds-card">
+        <p style="font-size:13px;font-weight:600;color:var(--gray);margin-bottom:20px;letter-spacing:1px;">EJEMPLOS DE MENSAJES WHATSAPP</p>
+        <div class="wa-examples">
+          <div class="wa-msg">
+            <p>Hola! Vi la receta con mermelada de uchuva y me quedé encantada 🌾 Quisiera pedir una caja. ¿Cómo hago?</p>
+            <p class="wa-tag">Cliente</p>
+          </div>
+          <div class="wa-msg" style="background:#fff;border:1px solid #e0e0e0;align-self:flex-start;border-radius:16px 16px 16px 4px;">
+            <p>¡Hola! Qué lindo que te interesa 💛 Tenemos disponibles galletas originales y para bebés. ¿En qué zona de Santa Cruz estás para coordinar el envío?</p>
+            <p class="wa-tag">Family Farm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ds-main -->
+</body>
+</html>

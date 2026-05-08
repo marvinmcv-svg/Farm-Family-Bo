@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galleta de Arroz Original — Family Farm Bolivia</title>
+  <meta name="description" content="Galleta de Arroz Original Family Farm Bolivia. Sin gluten, sin lactosa, vegana, sin conservantes. Hecha con amor en Santa Cruz, Bolivia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:       #1B5E5E; --teal-mid: #2A7E7E; --teal-light: #E4F4F4;
+      --orange:     #E8820A; --gold: #F0B429; --cream: #FDFAF5;
+      --dark:       #131A1A; --gray: #5A6A6A;
+      --shadow:     0 4px 24px rgba(27,94,94,.12); --transition: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 72px 0; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(253,250,245,.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,94,94,.1); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1120px; margin: 0 auto; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-circle span { font-family: 'Bebas Neue', sans-serif; color: #fff; line-height: 1; display: block; }
+    .logo-circle .lc-top { font-size: 9px; letter-spacing: 1px; }
+    .logo-circle .lc-mid { font-size: 11px; }
+    .logo-circle .lc-bot { font-size: 8px; opacity:.85; }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--teal); font-weight: 700; line-height: 1.2; }
+    .logo-text small { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--gray); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--teal); }
+    .btn-wa-nav { background: var(--orange); color: #fff; padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .btn-wa-nav:hover { background: #c96e06; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--teal-light); padding: 16px 24px 24px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--teal-light); }
+      .hamburger { display: flex; }
+      .btn-wa-nav { display: none; }
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb { padding: 100px 0 0; background: var(--cream); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray); }
+    .breadcrumb a { color: var(--teal); }
+    .breadcrumb span { color: var(--gray); }
+
+    /* PRODUCT HERO */
+    .product-hero { padding: 32px 0 72px; background: var(--cream); }
+    .product-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+    /* GALLERY */
+    .gallery { display: flex; flex-direction: column; gap: 12px; }
+    .gallery-main {
+      background: linear-gradient(145deg, var(--teal-light), #b8e0e0);
+      border-radius: 20px; height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 100px; cursor: pointer;
+      border: 2px solid transparent; transition: border-color var(--transition);
+    }
+    .gallery-main:hover { border-color: var(--teal); }
+    .gallery-thumbs { display: flex; gap: 10px; }
+    .gallery-thumb {
+      flex: 1; height: 88px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; cursor: pointer; border: 2px solid transparent;
+      transition: border-color var(--transition);
+    }
+    .gallery-thumb.active, .gallery-thumb:hover { border-color: var(--teal); }
+    .gallery-thumb:nth-child(1) { background: linear-gradient(145deg, #e4f4f4, #b8e0e0); }
+    .gallery-thumb:nth-child(2) { background: linear-gradient(145deg, #fff8e8, #fdecc8); }
+    .gallery-thumb:nth-child(3) { background: linear-gradient(145deg, #fce8e4, #f8c8c0); }
+    .gallery-thumb:nth-child(4) { background: linear-gradient(145deg, #e8f4e4, #c8e8c0); }
+
+    /* PRODUCT INFO */
+    .product-info { display: flex; flex-direction: column; gap: 20px; }
+    .product-kicker { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); }
+    .product-info h1 { font-size: clamp(26px, 3.5vw, 38px); color: var(--dark); }
+    .product-desc { font-size: 16px; line-height: 1.8; color: var(--gray); }
+    .product-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .p-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 600;
+      border: 1.5px solid;
+    }
+    .p-badge.teal   { color: var(--teal);   border-color: var(--teal);   background: var(--teal-light); }
+    .p-badge.orange { color: var(--orange); border-color: var(--orange); background: #fff8f0; }
+    .p-badge.green  { color: #2d7a2d;       border-color: #2d7a2d;       background: #e8f5e8; }
+
+    .price-row { display: flex; align-items: baseline; gap: 16px; }
+    .price-main { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--teal); }
+    .price-unit { font-size: 14px; color: var(--gray); }
+
+    .product-ctas { display: flex; flex-direction: column; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
+    .btn-wa { background: #25D366; color: #fff; font-size: 16px; }
+    .btn-wa:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.3); }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-primary:hover { background: #134848; transform: translateY(-2px); }
+    .btn-outline { border-color: var(--teal); color: var(--teal); background: transparent; }
+    .btn-outline:hover { background: var(--teal); color: #fff; }
+    .btn-secondary { background: var(--orange); color: #fff; }
+    .btn-secondary:hover { background: #c96e06; transform: translateY(-2px); }
+
+    .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .qty-label { font-size: 14px; font-weight: 600; color: var(--dark); }
+    .qty-ctrl { display: flex; align-items: center; gap: 0; border: 1.5px solid var(--teal-light); border-radius: 8px; overflow: hidden; }
+    .qty-btn { width: 40px; height: 40px; background: #fff; border: none; font-size: 18px; cursor: pointer; transition: background var(--transition); color: var(--teal); font-weight: 700; }
+    .qty-btn:hover { background: var(--teal-light); }
+    .qty-val { width: 48px; text-align: center; font-weight: 600; font-size: 16px; border: none; border-left: 1.5px solid var(--teal-light); border-right: 1.5px solid var(--teal-light); background: #fff; height: 40px; }
+
+    .divider { border: none; border-top: 1px solid var(--teal-light); margin: 4px 0; }
+
+    /* INGREDIENTS & NUTRITION */
+    .product-details { background: #fff; }
+    .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .details-col h3 { font-size: 22px; margin-bottom: 20px; color: var(--teal); }
+    .ingredients-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ingredients-list li { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+    .ingredients-list li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .nutrition-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .nutrition-table th { text-align: left; font-size: 12px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; border-bottom: 2px solid var(--teal); padding: 8px 0; }
+    .nutrition-table td { padding: 10px 0; border-bottom: 1px solid var(--teal-light); }
+    .nutrition-table tr td:last-child { font-weight: 600; color: var(--teal); text-align: right; }
+    @media (max-width: 600px) { .details-grid { grid-template-columns: 1fr; } }
+
+    /* HOW TO EAT */
+    .how-to { background: var(--teal-light); }
+    .toppings-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .topping-card {
+      background: #fff; border-radius: 16px; padding: 24px 16px;
+      text-align: center; box-shadow: var(--shadow); transition: transform var(--transition);
+    }
+    .topping-card:hover { transform: translateY(-4px); }
+    .topping-icon { font-size: 40px; margin-bottom: 10px; }
+    .topping-card h4 { font-size: 15px; margin-bottom: 6px; }
+    .topping-card p { font-size: 13px; color: var(--gray); }
+    @media (max-width: 768px) { .toppings-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px) { .toppings-grid { grid-template-columns: 1fr; } }
+
+    /* REVIEWS */
+    .reviews { background: var(--cream); }
+    .reviews-summary { display: flex; align-items: center; gap: 32px; margin-bottom: 40px; padding: 24px; background: #fff; border-radius: 16px; box-shadow: var(--shadow); }
+    .rating-big { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--teal); line-height: 1; }
+    .rating-detail { flex: 1; }
+    .rating-stars { color: var(--gold); font-size: 24px; letter-spacing: 4px; }
+    .rating-count { font-size: 14px; color: var(--gray); margin-top: 4px; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .review-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: var(--shadow); }
+    .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .reviewer { display: flex; align-items: center; gap: 10px; }
+    .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--teal); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; flex-shrink: 0; }
+    .reviewer-name { font-weight: 600; font-size: 15px; }
+    .reviewer-role { font-size: 12px; color: var(--gray); }
+    .review-stars { color: var(--gold); font-size: 14px; }
+    .review-text { font-size: 14px; line-height: 1.7; color: var(--dark); font-style: italic; }
+    @media (max-width: 600px) { .reviews-grid { grid-template-columns: 1fr; } .reviews-summary { flex-direction: column; text-align: center; } }
+
+    /* FAQ */
+    .faq-section { background: #fff; }
+    .faq-list { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--teal-light); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; cursor: pointer; font-weight: 600; font-size: 16px;
+      transition: color var(--transition);
+    }
+    .faq-q:hover { color: var(--teal); }
+    .faq-q .faq-icon { font-size: 20px; color: var(--teal); transition: transform var(--transition); flex-shrink: 0; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 0 20px; font-size: 15px; color: var(--gray); line-height: 1.7; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ALSO LIKE */
+    .also-like { background: var(--teal-light); }
+    .also-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 640px; margin: 0 auto; }
+    .also-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: flex; gap: 16px; align-items: center; padding: 16px; transition: transform var(--transition); }
+    .also-card:hover { transform: translateY(-4px); }
+    .also-img { width: 72px; height: 72px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+    .also-body h4 { font-size: 16px; margin-bottom: 4px; }
+    .also-body p { font-size: 13px; color: var(--gray); }
+    @media (max-width: 500px) { .also-grid { grid-template-columns: 1fr; } }
+
+    /* FLOAT WA */
+    .float-wa { position: fixed; bottom: 28px; left: 28px; z-index: 900; background: #25D366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,.4); transition: transform var(--transition); }
+    .float-wa:hover { transform: scale(1.1); }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,.8); padding: 48px 0 28px; }
+    .footer-b { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-b p { font-size: 13px; color: rgba(255,255,255,.35); }
+    .social-links { display: flex; gap: 12px; }
+    .social-link { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background var(--transition); }
+    .social-link:hover { background: var(--teal); }
+
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-kicker { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+    .section-header h2 { font-size: clamp(26px, 3.5vw, 40px); }
+    .section-header p { font-size: 16px; color: var(--gray); margin-top: 10px; }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: .1s; } .fade-up.d2 { transition-delay: .2s; } .fade-up.d3 { transition-delay: .3s; }
+
+    @media (max-width: 768px) { .product-hero-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-circle">
+          <span class="lc-top">FAMILY</span><span class="lc-mid">FARM</span><span class="lc-bot">BOL.</span>
+        </div>
+        <div class="logo-text">Family Farm <small>Bolivia</small></div>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="historia.html">Nuestra Historia</a></li>
+        <li><a href="producto.html">Productos</a></li>
+        <li><a href="recetas.html">Recetas</a></li>
+        <li><a href="https://wa.me/59175019023" target="_blank" class="btn-wa-nav">Pedir Ahora 💬</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="index.html">Inicio</a>
+        <span>›</span>
+        <a href="producto.html">Productos</a>
+        <span>›</span>
+        <span>Galleta de Arroz Original</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT HERO -->
+  <section class="product-hero">
+    <div class="container">
+      <div class="product-hero-grid">
+
+        <!-- GALLERY -->
+        <div class="gallery fade-up">
+          <div class="gallery-main" id="main-img">🍘</div>
+          <div class="gallery-thumbs">
+            <div class="gallery-thumb active" data-emoji="🍘" onclick="setMain(this)">🍘</div>
+            <div class="gallery-thumb" data-emoji="🍃" onclick="setMain(this)">🍃</div>
+            <div class="gallery-thumb" data-emoji="🌾" onclick="setMain(this)">🌾</div>
+            <div class="gallery-thumb" data-emoji="📦" onclick="setMain(this)">📦</div>
+          </div>
+        </div>
+
+        <!-- PRODUCT INFO -->
+        <div class="product-info fade-up d2">
+          <p class="product-kicker">⭐ Más Popular — Edición Original</p>
+          <h1>Galleta de Arroz Original</h1>
+          <p class="product-desc">
+            La galleta que lo inició todo. Crujiente, ligera y llena de amor boliviano. Hecha con
+            arroz puro sin ingredientes ocultos, es el snack perfecto para cualquier momento del día:
+            la lonchera de los niños, el desayuno del deportista o la merienda de la abuela.
+          </p>
+          <div class="product-badges">
+            <span class="p-badge teal">✓ Sin Gluten</span>
+            <span class="p-badge teal">✓ Sin Lactosa</span>
+            <span class="p-badge green">🌿 Vegana</span>
+            <span class="p-badge orange">👶 Apta para Bebés</span>
+            <span class="p-badge teal">📍 Hecha en Bolivia</span>
+          </div>
+          <hr class="divider" />
+          <div class="price-row">
+            <span class="price-main">Bs. —</span>
+            <span class="price-unit">Consultar precio actualizado por WhatsApp</span>
+          </div>
+          <hr class="divider" />
+          <div class="qty-row">
+            <span class="qty-label">Cantidad:</span>
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <input class="qty-val" id="qty" type="number" value="1" min="1" max="99" readonly />
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+          <div class="product-ctas">
+            <a href="https://wa.me/59175019023?text=Hola!%20Quiero%20pedir%20la%20Galleta%20de%20Arroz%20Original%20Family%20Farm%20%F0%9F%8C%BE"
+               target="_blank" class="btn btn-wa">Pedir por WhatsApp 💬</a>
+            <button class="btn btn-primary" onclick="addToCart()">Agregar al Carrito 🛒</button>
+            <a href="historia.html" class="btn btn-outline">Conocer nuestra historia →</a>
+          </div>
+          <hr class="divider" />
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <span style="font-size:13px;color:var(--gray);display:flex;align-items:center;gap:6px;">✓ Envíos en Santa Cruz</span>
+            <span style="font-size:13px;color:var(--gray);display:flex;align-items:center;gap:6px;">✓ Disponible en 3 puntos de venta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENTS & NUTRITION -->
+  <section class="product-details section">
+    <div class="container">
+      <div class="details-grid">
+        <div class="fade-up">
+          <h3>Ingredientes</h3>
+          <ul class="ingredients-list">
+            <li>Arroz boliviano (ingrediente principal)</li>
+            <li>Aceite vegetal (sin transgrasa)</li>
+            <li>Sal marina</li>
+            <li>Sin aditivos artificiales</li>
+            <li>Sin conservantes</li>
+            <li>Sin ingredientes ocultos</li>
+          </ul>
+          <p style="font-size:13px;color:var(--gray);margin-top:16px;">
+            🌾 Elaborada en instalaciones sin gluten. Sin trazas de leche de vaca.
+          </p>
+        </div>
+        <div class="fade-up d2">
+          <h3>Información Nutricional</h3>
+          <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">Porción de referencia: 30g (aprox. 5 galletas)</p>
+          <table class="nutrition-table">
+            <thead>
+              <tr><th>Nutriente</th><th>Por porción</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Calorías</td><td>115 kcal</td></tr>
+              <tr><td>Carbohidratos</td><td>24g</td></tr>
+              <tr><td>Proteínas</td><td>2g</td></tr>
+              <tr><td>Grasas totales</td><td>2g</td></tr>
+              <tr><td>Grasas saturadas</td><td>0.3g</td></tr>
+              <tr><td>Sodio</td><td>80mg</td></tr>
+              <tr><td>Fibra</td><td>0.5g</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:11px;color:var(--gray);margin-top:12px;">* Los valores nutricionales son aproximados. Confirmar con etiqueta del producto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO EAT -->
+  <section class="how-to section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Cómo comerla</p>
+        <h2>Infinitas posibilidades, una sola galleta.</h2>
+        <p>De la lonchera del bebé al brunch del domingo — Family Farm se adapta a todos.</p>
+      </div>
+      <div class="toppings-grid">
+        <div class="topping-card fade-up d1">
+          <div class="topping-icon">🍯</div>
+          <h4>Con mermelada de uchuva</h4>
+          <p>En colaboración con @dulcesjessen. Dulce boliviano en su máxima expresión.</p>
+        </div>
+        <div class="topping-card fade-up d2">
+          <div class="topping-icon">🥑</div>
+          <h4>Con palta y tomate</h4>
+          <p>El desayuno fitness por excelencia. Agrega sal marina y semillas de chía.</p>
+        </div>
+        <div class="topping-card fade-up d3">
+          <div class="topping-icon">🍳</div>
+          <h4>Con jamón y huevo pochado</h4>
+          <p>La cena gourmet en 5 minutos. Agrega brotes frescos y tomates secos.</p>
+        </div>
+        <div class="topping-card fade-up d1">
+          <div class="topping-icon">👶</div>
+          <h4>Solo — perfecta para bebés</h4>
+          <p>Sin ningún topping. El primer snack de tu aventurero, seguro y natural.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Reseñas del producto</p>
+        <h2>Lo que dicen nuestros clientes</h2>
+      </div>
+      <div class="reviews-summary fade-up">
+        <div class="rating-big">4.9</div>
+        <div class="rating-detail">
+          <div class="rating-stars">★★★★★</div>
+          <p class="rating-count">Basado en 87 reseñas · Galleta Original</p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card fade-up d1">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">M</div>
+              <div>
+                <p class="reviewer-name">María Eugenia V.</p>
+                <p class="reviewer-role">Mamá de dos · Santa Cruz</p>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">"Mi hija tiene APLV y estas son las únicas galletas que puedo darle con total tranquilidad. Le encantan con mermelada. ¡Gracias Family Farm!"</p>
+        </div>
+        <div class="review-card fade-up d2">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar" style="background:var(--orange);">R</div>
+              <div>
+                <p class="reviewer-name">Rodrigo Salinas</p>
+                <p class="reviewer-role">Deportista · Santa Cruz</p>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">"Las llevo al gimnasio todos los días. Con palta y tomate cherry son el snack post-entreno perfecto. Nada de culpa, todo de sabor."</p>
+        </div>
+        <div class="review-card fade-up d1">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar" style="background:var(--teal-mid);">C</div>
+              <div>
+                <p class="reviewer-name">Carmen Flores</p>
+                <p class="reviewer-role">Nutricionista · Santa Cruz</p>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">"Las recomiendo a todos mis pacientes celíacos. Son 100% seguras y la lista de ingredientes es honestísima. Pocos ingredientes, todos reconocibles."</p>
+        </div>
+        <div class="review-card fade-up d2">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar" style="background:#8B6914;">A</div>
+              <div>
+                <p class="reviewer-name">Adriana Torres</p>
+                <p class="reviewer-role">Cliente fiel · Cochabamba</p>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <p class="review-text">"Me las envían a Cochabamba y siempre llegan perfectas. La historia de la marca me emocionó profundamente. Compro porque creo en ellos."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Preguntas frecuentes</p>
+        <h2>Todo lo que necesitas saber</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item fade-up">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Son aptas para bebés? <span class="faq-icon">+</span>
+          </div>
+          <p class="faq-a">Sí. La Galleta Original y especialmente nuestra línea Para Bebés son completamente seguras para bebés, ya que no contienen proteína de leche de vaca (APLV). Están formuladas sin ingredientes que representen riesgo para los más pequeños. Siempre recomendamos consultar con el pediatra antes de introducir nuevos alimentos.</p>
+        </div>
+        <div class="faq-item fade-up d1">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Tiene gluten? <span class="faq-icon">+</span>
+          </div>
+          <p class="faq-a">No. Nuestras galletas son 100% libres de gluten, elaboradas con arroz puro boliviano. Son aptas para personas celíacas e intolerantes al gluten. Producidas en instalaciones sin gluten para evitar contaminación cruzada.</p>
+        </div>
+        <div class="faq-item fade-up d2">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Cómo se almacena? <span class="faq-icon">+</span>
+          </div>
+          <p class="faq-a">En lugar fresco y seco, alejado de la luz solar directa. Una vez abierto el paquete, recomendamos consumir en 3-5 días o guardar en un recipiente hermético para mantener la textura crujiente. No requieren refrigeración.</p>
+        </div>
+        <div class="faq-item fade-up d3">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Hacen envíos a toda Bolivia? <span class="faq-icon">+</span>
+          </div>
+          <p class="faq-a">Hacemos envíos en Santa Cruz de la Sierra. Para otras ciudades de Bolivia, escríbenos por WhatsApp al +591 75019023 y coordinamos según tu ubicación. También puedes encontrarnos en Macarena, Greenhouse y Zucchini en Santa Cruz.</p>
+        </div>
+        <div class="faq-item fade-up">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            ¿Contienen conservantes o aditivos? <span class="faq-icon">+</span>
+          </div>
+          <p class="faq-a">No. Cero conservantes artificiales, cero colorantes, cero aditivos. La etiqueta dice exactamente lo que hay: arroz, aceite vegetal y sal marina. Sin ingredientes ocultos, nunca.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAMBIÉN TE PUEDE GUSTAR -->
+  <section class="also-like section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">También te puede gustar</p>
+        <h2>Más de nuestra familia</h2>
+      </div>
+      <div class="also-grid fade-up d1">
+        <div class="also-card">
+          <div class="also-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">👶</div>
+          <div class="also-body">
+            <h4>Galleta Para Bebés</h4>
+            <p>Sin proteína de leche · El primer snack</p>
+          </div>
+        </div>
+        <div class="also-card">
+          <div class="also-img" style="background:linear-gradient(145deg,#f4ede4,#e8d5c0);">🍽️</div>
+          <div class="also-body">
+            <h4>Edición Gourmet</h4>
+            <p>Para el brunch del fin de semana</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:32px;" class="fade-up d2">
+        <a href="https://wa.me/59175019023?text=Hola!%20Quisiera%20conocer%20todos%20sus%20productos%20%F0%9F%8C%BE"
+           target="_blank" class="btn btn-secondary">Ver todos los productos 💬</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-b">
+        <p>© 2024 Family Farm Bolivia · "Come sin culpa." · Santa Cruz, Bolivia</p>
+        <div class="social-links">
+          <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="social-link">📸</a>
+          <a href="https://wa.me/59175019023" target="_blank" class="social-link">💬</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WA -->
+  <a href="https://wa.me/59175019023?text=Hola!%20Me%20interesa%20la%20Galleta%20Original%20%F0%9F%8C%BE"
+     target="_blank" class="float-wa">💬</a>
+
+  <script src="chatbot.js" defer></script>
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Gallery
+    function setMain(thumb) {
+      document.getElementById('main-img').textContent = thumb.dataset.emoji;
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    // Qty
+    function changeQty(delta) {
+      const inp = document.getElementById('qty');
+      const v = parseInt(inp.value) + delta;
+      if (v >= 1 && v <= 99) inp.value = v;
+    }
+
+    // Cart
+    function addToCart() {
+      const qty = document.getElementById('qty').value;
+      alert(`¡Agregado al carrito!\n${qty} paquete(s) de Galleta Original.\nPara completar tu pedido, contáctanos por WhatsApp.`);
+    }
+
+    // FAQ
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // Scroll anim
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    window.addEventListener('scroll', () => { document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(27,94,94,.15)' : 'none'; });
+  </script>
+</body>
+</html>

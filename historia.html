@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestra Historia — Family Farm Bolivia</title>
+  <meta name="description" content="La historia de cómo una alergia de un niño en Santa Cruz, Bolivia, dio vida a Family Farm: galletas de arroz hechas con amor." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:       #1B5E5E;
+      --teal-mid:   #2A7E7E;
+      --teal-light: #E4F4F4;
+      --orange:     #E8820A;
+      --gold:       #F0B429;
+      --cream:      #FDFAF5;
+      --dark:       #131A1A;
+      --gray:       #5A6A6A;
+      --shadow:     0 4px 24px rgba(27,94,94,.12);
+      --transition: 0.3s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); line-height: 1.6; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 80px 0; }
+
+    /* NAV (shared) */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(253,250,245,.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27,94,94,.1);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; max-width: 1120px; margin: 0 auto;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-circle {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--teal);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .logo-circle span { font-family: 'Bebas Neue', sans-serif; color: #fff; line-height: 1; display: block; }
+    .logo-circle .lc-top { font-size: 9px; letter-spacing: 1px; }
+    .logo-circle .lc-mid { font-size: 11px; letter-spacing: .5px; }
+    .logo-circle .lc-bot { font-size: 8px; letter-spacing: 1px; opacity:.85; }
+    .logo-text { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--teal); font-weight: 700; line-height: 1.2; }
+    .logo-text small { display: block; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 400; color: var(--gray); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); transition: color var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+    .btn-wa-nav { background: var(--orange); color: #fff; padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: background var(--transition); }
+    .btn-wa-nav:hover { background: #c96e06; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--teal); border-radius: 2px; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--teal-light); padding: 16px 24px 24px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 12px 0; border-bottom: 1px solid var(--teal-light); font-size: 16px; }
+      .hamburger { display: flex; }
+      .btn-wa-nav { display: none; }
+    }
+
+    /* HERO */
+    .hero-historia {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(160deg, var(--teal) 0%, #0d3535 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-historia::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-historia-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+      align-items: center; max-width: 1120px; margin: 0 auto;
+      padding: 80px 24px; width: 100%; position: relative;
+    }
+    .hero-historia-content { color: #fff; }
+    .hero-kicker { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .hero-historia h1 { font-size: clamp(30px, 4.5vw, 52px); color: #fff; margin-bottom: 20px; }
+    .hero-historia h1 em { color: var(--gold); font-style: normal; }
+    .hero-historia-content p { font-size: 18px; line-height: 1.8; color: rgba(255,255,255,.8); margin-bottom: 28px; }
+    .hero-img-story {
+      background: rgba(255,255,255,.1); border-radius: 24px;
+      min-height: 460px; display: flex; align-items: center;
+      justify-content: center; flex-direction: column; gap: 16px;
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(4px);
+    }
+    .hero-img-story .big-emoji { font-size: 80px; }
+    .hero-img-story p { color: rgba(255,255,255,.5); font-size: 13px; letter-spacing: 1px; }
+
+    @media (max-width: 768px) {
+      .hero-historia-inner { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
+      .hero-img-story { min-height: 220px; }
+    }
+
+    /* BTN */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-gold:hover { background: #d9a020; transform: translateY(-2px); }
+    .btn-outline-white { border-color: rgba(255,255,255,.4); color: #fff; background: transparent; }
+    .btn-outline-white:hover { background: rgba(255,255,255,.15); }
+    .btn-primary { background: var(--teal); color: #fff; }
+    .btn-primary:hover { background: #134848; transform: translateY(-2px); }
+    .btn-secondary { background: var(--orange); color: #fff; }
+    .btn-secondary:hover { background: #c96e06; transform: translateY(-2px); }
+
+    /* FULL STORY */
+    .full-story { background: var(--cream); }
+    .story-prose { max-width: 760px; margin: 0 auto; }
+    .story-prose h2 { font-size: clamp(26px, 3.5vw, 40px); color: var(--teal); margin-bottom: 28px; }
+    .story-prose p { font-size: 17px; line-height: 1.9; color: var(--dark); margin-bottom: 20px; }
+    .story-prose .lead { font-size: 20px; color: var(--teal); font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 28px; }
+    .story-prose .pull-quote {
+      border-left: 4px solid var(--orange); background: #fff;
+      padding: 24px 28px; margin: 36px 0; border-radius: 0 16px 16px 0;
+      box-shadow: var(--shadow);
+    }
+    .story-prose .pull-quote q {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      font-style: italic; color: var(--teal); line-height: 1.5;
+    }
+    .story-prose .pull-quote cite { display: block; margin-top: 12px; font-size: 14px; color: var(--gray); font-style: normal; }
+
+    /* TIMELINE */
+    .timeline-section { background: var(--teal); color: #fff; }
+    .timeline { position: relative; max-width: 680px; margin: 0 auto; padding: 16px 0; }
+    .timeline::before {
+      content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+      width: 2px; background: rgba(255,255,255,.2);
+    }
+    .timeline-item {
+      display: flex; gap: 32px; margin-bottom: 48px; position: relative;
+    }
+    .timeline-dot {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--gold); color: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .timeline-body { padding-top: 12px; }
+    .timeline-year { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 2px; }
+    .timeline-body h3 { font-size: 20px; color: #fff; margin-bottom: 6px; }
+    .timeline-body p { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.6; }
+
+    /* VALUES */
+    .values { background: #fff; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .value-card {
+      padding: 32px 24px; border-radius: 16px;
+      background: var(--cream); border: 1px solid var(--teal-light);
+      text-align: center; transition: all var(--transition);
+    }
+    .value-card:hover { border-color: var(--teal); box-shadow: var(--shadow); }
+    .value-icon { font-size: 40px; margin-bottom: 14px; }
+    .value-card h3 { font-size: 18px; color: var(--teal); margin-bottom: 8px; }
+    .value-card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+    @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .values-grid { grid-template-columns: 1fr; } }
+
+    /* WHY IT MATTERS */
+    .why-matters {
+      background: var(--teal-light); padding: 80px 0;
+    }
+    .why-matters-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .why-matters-img {
+      background: var(--teal); border-radius: 20px; min-height: 360px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px; color: #fff;
+    }
+    .why-matters-img .big-emoji { font-size: 72px; }
+    .why-matters-img p { font-size: 13px; opacity: .6; letter-spacing: 1px; }
+    .why-matters-content h2 { font-size: clamp(26px, 3.5vw, 40px); color: var(--teal); margin-bottom: 20px; }
+    .why-matters-content p { font-size: 16px; line-height: 1.8; color: var(--dark); margin-bottom: 16px; }
+    @media (max-width: 768px) { .why-matters-inner { grid-template-columns: 1fr; } .why-matters-img { min-height: 200px; } }
+
+    /* FOUNDER LETTER */
+    .founder-letter { background: var(--cream); }
+    .letter-card {
+      max-width: 760px; margin: 0 auto; background: #fff;
+      border-radius: 24px; padding: 56px; box-shadow: var(--shadow);
+      border: 1px solid var(--teal-light); position: relative;
+    }
+    .letter-card::before {
+      content: '"'; position: absolute; top: 24px; left: 40px;
+      font-family: 'Playfair Display', serif; font-size: 120px;
+      color: var(--teal-light); line-height: 1; z-index: 0;
+    }
+    .letter-content { position: relative; z-index: 1; }
+    .letter-date { font-size: 14px; color: var(--gray); margin-bottom: 24px; }
+    .letter-saludo { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--teal); margin-bottom: 20px; }
+    .letter-content p { font-size: 16px; line-height: 1.9; color: var(--dark); margin-bottom: 16px; }
+    .letter-firma { margin-top: 36px; }
+    .firma-name { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; color: var(--teal); }
+    .firma-role { font-size: 13px; color: var(--gray); margin-top: 4px; }
+
+    @media (max-width: 600px) { .letter-card { padding: 32px 24px; } }
+
+    /* WHERE */
+    .where-section { background: #fff; }
+    .stores-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+    .store-card {
+      background: var(--cream); border-radius: 16px; padding: 24px;
+      text-align: center; border: 1px solid var(--teal-light);
+      transition: all var(--transition);
+    }
+    .store-card:hover { border-color: var(--teal); box-shadow: var(--shadow); }
+    .store-card .s-icon { font-size: 36px; margin-bottom: 12px; }
+    .store-card h3 { font-size: 18px; margin-bottom: 6px; }
+    .store-card p  { font-size: 14px; color: var(--gray); }
+    @media (max-width: 600px) { .stores-row { grid-template-columns: 1fr; } }
+
+    /* CTA FINAL */
+    .cta-historia {
+      background: linear-gradient(135deg, var(--orange) 0%, #c96e06 100%);
+      padding: 80px 0; text-align: center;
+    }
+    .cta-historia h2 { font-size: clamp(28px, 4vw, 44px); color: #fff; margin-bottom: 16px; }
+    .cta-historia p  { font-size: 18px; color: rgba(255,255,255,.85); margin-bottom: 36px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-historia .btn { background: #fff; color: var(--orange); font-size: 16px; padding: 16px 36px; }
+    .cta-historia .btn:hover { background: var(--teal); color: #fff; }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,.8); padding: 48px 0 28px; }
+    .footer-bottom2 { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; }
+    .footer-bottom2 p { font-size: 13px; color: rgba(255,255,255,.35); }
+    .social-links { display: flex; gap: 12px; }
+    .social-link { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background var(--transition); }
+    .social-link:hover { background: var(--teal); }
+
+    /* FLOAT WA */
+    .float-wa {
+      position: fixed; bottom: 28px; left: 28px; z-index: 900;
+      background: #25D366; color: #fff; width: 56px; height: 56px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 26px; box-shadow: 0 4px 20px rgba(37,211,102,.4);
+      transition: transform var(--transition);
+    }
+    .float-wa:hover { transform: scale(1.1); }
+
+    /* SCROLL ANIM */
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: .1s; }
+    .fade-up.d2 { transition-delay: .2s; }
+    .fade-up.d3 { transition-delay: .3s; }
+    .fade-up.d4 { transition-delay: .4s; }
+
+    .section-kicker { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 { font-size: clamp(28px, 4vw, 44px); }
+    .section-header p { font-size: 17px; color: var(--gray); margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-circle">
+          <span class="lc-top">FAMILY</span><span class="lc-mid">FARM</span><span class="lc-bot">BOL.</span>
+        </div>
+        <div class="logo-text">Family Farm <small>Bolivia</small></div>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="historia.html" class="active">Nuestra Historia</a></li>
+        <li><a href="producto.html">Productos</a></li>
+        <li><a href="recetas.html">Recetas</a></li>
+        <li><a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!" target="_blank" class="btn-wa-nav">Pedir Ahora 💬</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- HERO EMOCIONAL -->
+  <section class="hero-historia">
+    <div class="hero-historia-inner">
+      <div class="hero-historia-content fade-up">
+        <p class="hero-kicker">La historia que lo cambió todo</p>
+        <h1>Nuestra historia comenzó aquí — con un <em>aventurero</em> y una alergia.</h1>
+        <p>No buscábamos crear una empresa. Buscábamos un snack seguro para nuestro hijo. Y en esa búsqueda, descubrimos algo más grande.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#la-historia" class="btn btn-gold">Leer la historia completa ↓</a>
+          <a href="https://wa.me/59175019023" target="_blank" class="btn btn-outline-white">Pedir ahora 💬</a>
+        </div>
+      </div>
+      <div class="hero-img-story fade-up d2">
+        <div class="big-emoji">👶🌾💛</div>
+        <p>EL AVENTURERO — SANTA CRUZ, BOLIVIA</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA COMPLETA -->
+  <section class="full-story section" id="la-historia">
+    <div class="container">
+      <div class="story-prose">
+        <p class="section-kicker fade-up">En primera persona</p>
+        <h2 class="fade-up">Cómo una alergia cambió nuestra vida — y la de muchas familias.</h2>
+        <p class="lead fade-up">
+          "El día que nuestro médico nos dijo que nuestro hijo tenía alergia a la proteína de la leche de vaca,
+          nuestro mundo cambió de golpe."
+        </p>
+        <p class="fade-up">
+          Empezamos a leer etiquetas obsesivamente. A rechazar paquetes llenos de ingredientes que no
+          sabíamos ni pronunciar. A buscar opciones saludables, veganas, sin ingredientes ocultos.
+          Opciones que fueran seguras para él.
+        </p>
+        <p class="fade-up">
+          Lo que encontramos en el mercado boliviano nos frustró. Los productos "saludables"
+          eran caros, difíciles de conseguir, importados — y muchos tenían trazas de leche escondidas
+          bajo nombres técnicos que ningún padre debería tener que descifrar.
+        </p>
+        <div class="pull-quote fade-up">
+          <q>Si no existe lo que buscamos, lo creamos nosotros.</q>
+          <cite>— La decisión que cambió todo.</cite>
+        </div>
+        <p class="fade-up">
+          Así empezamos. Con arroz boliviano, nuestra cocina en Santa Cruz, y muchas pruebas y errores.
+          El primer lote de galletas fue horrible — nos reímos todavía de eso. El segundo estuvo mejor.
+          Y el décimo... el décimo hizo que nuestro hijo los comiera sin parar.
+        </p>
+        <p class="fade-up">
+          Cuando las vecinas empezaron a preguntar qué era lo que él comía, y cuando comenzamos a regalar
+          paquetes y recibir mensajes de mamás que nos agradecían con el corazón en la mano, entendimos:
+          esto era más grande que nosotros.
+        </p>
+        <p class="fade-up">
+          Family Farm nació así. No en una fábrica. En una cocina familiar, en Santa Cruz, Bolivia.
+          Con un aventurero pequeño como inspiración y la convicción de que <strong>comer sin culpa
+          debería ser para todos</strong> — no solo para los que pueden pagar productos importados.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LÍNEA DE TIEMPO -->
+  <section class="timeline-section section">
+    <div class="container">
+      <div class="section-header fade-up" style="color:#fff;">
+        <p class="section-kicker" style="color:var(--gold);">Nuestro camino</p>
+        <h2 style="color:#fff;">De una cocina familiar al corazón de Santa Cruz.</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot">🍳</div>
+          <div class="timeline-body">
+            <p class="timeline-year">El Comienzo</p>
+            <h3>El primer lote casero</h3>
+            <p>En nuestra cocina, con nuestro hijo como primer cliente (y crítico más exigente). Prueba, error, amor.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-up d1">
+          <div class="timeline-dot">🏘️</div>
+          <div class="timeline-body">
+            <p class="timeline-year">Los primeros pedidos</p>
+            <h3>Vecinos y amigos se suman</h3>
+            <p>Las primeras bolsas que salieron de nuestra casa fueron para vecinas que vieron a nuestro hijo comer con tanto gusto.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-up d2">
+          <div class="timeline-dot">🛒</div>
+          <div class="timeline-body">
+            <p class="timeline-year">Puntos de venta</p>
+            <h3>Entrada a Macarena, Greenhouse y Zucchini</h3>
+            <p>Santa Cruz nos abrió las puertas. Tres tiendas que comparten nuestra visión de alimentación natural y honesta.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-up d3">
+          <div class="timeline-dot">📱</div>
+          <div class="timeline-body">
+            <p class="timeline-year">Redes sociales</p>
+            <h3>@familyfarm_bolivia en Instagram</h3>
+            <p>Nuestra comunidad digital donde compartimos recetas, historia y el día a día de una empresa familiar boliviana.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-up d4">
+          <div class="timeline-dot">💛</div>
+          <div class="timeline-body">
+            <p class="timeline-year">Hoy</p>
+            <h3>241 familias y creciendo</h3>
+            <p>Cada pedido es una familia más que confía en nosotros. Gracias por ser parte de esta historia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="values section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Lo que nos mueve</p>
+        <h2>Nuestros Valores</h2>
+        <p>No son palabras en una pared. Son decisiones que tomamos cada vez que hacemos una galleta.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card fade-up d1">
+          <div class="value-icon">🌾</div>
+          <h3>Ingredientes bolivianos honestos</h3>
+          <p>Arroz boliviano, sabores locales. Apoyamos a productores bolivianos porque creemos en lo que tenemos aquí.</p>
+        </div>
+        <div class="value-card fade-up d2">
+          <div class="value-icon">💛</div>
+          <h3>Hechas con amor, no en fábrica</h3>
+          <p>Cada lote es artesanal. Hay manos que mezclan, hornean y empacan con cuidado en cada galleta.</p>
+        </div>
+        <div class="value-card fade-up d3">
+          <div class="value-icon">👶</div>
+          <h3>Seguras para los más pequeños</h3>
+          <p>Nuestro hijo fue el primer control de calidad. Si no es seguro para él, no sale de nuestra cocina.</p>
+        </div>
+        <div class="value-card fade-up d1">
+          <div class="value-icon">🌿</div>
+          <h3>Sin ingredientes ocultos, nunca</h3>
+          <p>La etiqueta dice todo lo que hay. Sin tecnicismos, sin aditivos escondidos. Solo lo que necesitas saber.</p>
+        </div>
+        <div class="value-card fade-up d2">
+          <div class="value-icon">📍</div>
+          <h3>Orgullosamente de Santa Cruz</h3>
+          <p>Nacimos aquí, crecemos aquí, y queremos llenar las loncheras cruceñas con algo hecho de verdad.</p>
+        </div>
+        <div class="value-card fade-up d3">
+          <div class="value-icon">🤝</div>
+          <h3>Comunidad antes que todo</h3>
+          <p>Colaboramos con marcas locales como @dulcesjessen porque juntos construimos algo más bonito.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ NOS IMPORTA -->
+  <section class="why-matters">
+    <div class="container">
+      <div class="why-matters-inner">
+        <div class="why-matters-img fade-up">
+          <div class="big-emoji">💛🌾</div>
+          <p>FAMILY FARM BOLIVIA</p>
+        </div>
+        <div class="why-matters-content fade-up d2">
+          <p class="section-kicker">Por qué nos importa</p>
+          <h2>No es solo un negocio. Es nuestra misión de familia.</h2>
+          <p>
+            Cuando nuestro hijo creció lo suficiente para preguntarnos por qué las galletas
+            que él comía eran "diferentes", le dijimos la verdad: porque las hicimos para él.
+          </p>
+          <p>
+            Y eso se convirtió en algo más grande. Porque hay miles de niños en Bolivia con
+            alergias, con restricciones dietéticas, cuyos padres también leen etiquetas de noche
+            con una linterna buscando un snack seguro.
+          </p>
+          <p>
+            Family Farm existe para ellos también. Para la mamá que busca algo sin gluten.
+            Para el deportista que quiere comer limpio. Para el abuelo que cuida su azúcar.
+            Para quien simplemente quiere saber qué está comiendo.
+          </p>
+          <p><strong style="color:var(--teal)">Comer sin culpa. Para todos. Hecho en Bolivia.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARTA DEL FUNDADOR -->
+  <section class="founder-letter section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Mensaje personal</p>
+        <h2>Una carta de nuestra familia para la tuya</h2>
+      </div>
+      <div class="letter-card fade-up d1">
+        <div class="letter-content">
+          <p class="letter-date">Santa Cruz de la Sierra, Bolivia</p>
+          <p class="letter-saludo">Para todas las familias que confían en nosotros:</p>
+          <p>
+            Cuando empezamos a hacer estas galletas, lo último que pensábamos era que algún
+            día estaríamos escribiéndole a cientos de familias bolivianas. Pensábamos, honestamente,
+            que íbamos a hacer unas pocas bolsas para nuestro hijo y para los vecinos.
+          </p>
+          <p>
+            Pero algo especial pasó. Las mamás empezaron a escribirnos contando que sus hijos
+            con alergia finalmente tenían un snack que podían comer sin miedo. Los deportistas
+            nos contaban que las llevaban al gimnasio. Las abuelitas nos pedían cajas para regalar.
+          </p>
+          <p>
+            Eso nos enseñó algo importante: <em>comer bien no debería ser complicado ni caro ni
+            lleno de ingredientes que nadie entiende.</em> Debería ser simple, honesto y delicioso.
+          </p>
+          <p>
+            Cada galleta que hacemos lleva un poco de nuestra historia. De nuestro hijo aventurero.
+            De nuestra cocina en Santa Cruz. De las noches probando recetas y las mañanas que
+            olían a arroz tostado.
+          </p>
+          <p>
+            Gracias por confiar en nosotros. Gracias por ser parte de esta familia.
+          </p>
+          <div class="letter-firma">
+            <p class="firma-name">La Familia Farm</p>
+            <p class="firma-role">Family Farm Bolivia · Santa Cruz, Bolivia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÓNDE ESTAMOS -->
+  <section class="where-section section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Dónde encontrarnos</p>
+        <h2>Cerca de ti en Santa Cruz</h2>
+      </div>
+      <div class="stores-row">
+        <div class="store-card fade-up d1">
+          <div class="s-icon">🛒</div>
+          <h3>Macarena</h3>
+          <p>Tienda de productos naturales y orgánicos · Santa Cruz</p>
+        </div>
+        <div class="store-card fade-up d2">
+          <div class="s-icon">🌿</div>
+          <h3>Greenhouse</h3>
+          <p>Mercado saludable y gourmet · Santa Cruz</p>
+        </div>
+        <div class="store-card fade-up d3">
+          <div class="s-icon">🥗</div>
+          <h3>Zucchini</h3>
+          <p>Restaurante y tienda de alimentos naturales · Santa Cruz</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-historia">
+    <div class="container">
+      <h2 class="fade-up">Únete a la familia.</h2>
+      <p class="fade-up d1">Haz tu primer pedido hoy y descubre por qué 241 familias en Santa Cruz nos eligen cada semana.</p>
+      <a href="https://wa.me/59175019023?text=Hola!%20Le%C3%AD%20su%20historia%20y%20quiero%20hacer%20mi%20primer%20pedido%20%F0%9F%8C%BE"
+         target="_blank" class="btn fade-up d2">Hacer mi primer pedido 💬</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom2">
+        <p>© 2024 Family Farm Bolivia · "Come sin culpa." · Santa Cruz, Bolivia</p>
+        <div class="social-links">
+          <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="social-link">📸</a>
+          <a href="https://wa.me/59175019023" target="_blank" class="social-link">💬</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WA -->
+  <a href="https://wa.me/59175019023?text=Hola%20Family%20Farm!%20%F0%9F%8C%BE"
+     target="_blank" class="float-wa" title="Pedir por WhatsApp">💬</a>
+
+  <script src="chatbot.js" defer></script>
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    window.addEventListener('scroll', () => { document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(27,94,94,.15)' : 'none'; });
+  </script>
+</body>
+</html>
