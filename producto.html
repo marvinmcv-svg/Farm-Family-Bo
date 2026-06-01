@@ -223,6 +223,29 @@
     .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .fade-up.d1 { transition-delay: .1s; } .fade-up.d2 { transition-delay: .2s; } .fade-up.d3 { transition-delay: .3s; }
+    .fade-left  { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-left.visible  { opacity: 1; transform: translateX(0); }
+    .fade-right { opacity: 0; transform: translateX(40px);  transition: opacity .7s ease, transform .7s ease; }
+    .fade-right.visible { opacity: 1; transform: translateX(0); }
+    .scale-in   { opacity: 0; transform: scale(.88); transition: opacity .6s ease, transform .6s ease; }
+    .scale-in.visible   { opacity: 1; transform: scale(1); }
+
+    /* Gallery image zoom */
+    .gallery-main img { transition: transform .5s ease; }
+    .gallery-main:hover img { transform: scale(1.04); }
+    .gallery-thumb img { transition: transform .4s ease; }
+    .gallery-thumb:hover img { transform: scale(1.08); }
+
+    /* Ticker */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-wrap { background: var(--orange); padding: 13px 0; overflow: hidden; margin-bottom: 0; }
+    .ticker-inner { display: flex; animation: marquee 28s linear infinite; width: max-content; }
+    .ticker-item { padding: 0 36px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: #fff; letter-spacing: 2px; white-space: nowrap; }
+    .ticker-item::after { content: '  ·  '; opacity: .5; }
+
+    /* Topping card hover lift */
+    .topping-card { transition: transform var(--transition), box-shadow var(--transition); }
+    .topping-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(27,94,94,.18); }
 
     @media (max-width: 768px) { .product-hero-grid { grid-template-columns: 1fr; } }
   </style>
@@ -262,6 +285,28 @@
     </div>
   </div>
 
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Sin Gluten</span>
+      <span class="ticker-item">Sin Lactosa</span>
+      <span class="ticker-item">Vegana</span>
+      <span class="ticker-item">Sin Conservantes</span>
+      <span class="ticker-item">Apta para Bebés</span>
+      <span class="ticker-item">Hecha en Bolivia</span>
+      <span class="ticker-item">Arroz Boliviano</span>
+      <span class="ticker-item">Come sin culpa</span>
+      <span class="ticker-item">Sin Gluten</span>
+      <span class="ticker-item">Sin Lactosa</span>
+      <span class="ticker-item">Vegana</span>
+      <span class="ticker-item">Sin Conservantes</span>
+      <span class="ticker-item">Apta para Bebés</span>
+      <span class="ticker-item">Hecha en Bolivia</span>
+      <span class="ticker-item">Arroz Boliviano</span>
+      <span class="ticker-item">Come sin culpa</span>
+    </div>
+  </div>
+
   <!-- PRODUCT HERO -->
   <section class="product-hero">
     <div class="container">
@@ -271,24 +316,19 @@
         <div class="gallery fade-up">
           <div class="gallery-main" id="main-img">
             <img id="main-img-el" src="images/product-original.jpg" alt="Galleta de Arroz Original Family Farm" onerror="this.style.display='none'">
-            <span id="main-emoji">🍘</span>
           </div>
           <div class="gallery-thumbs">
             <div class="gallery-thumb active" data-img="images/product-original.jpg" data-emoji="🍘" onclick="setMain(this)">
               <img src="images/product-original.jpg" alt="Galleta Original" onerror="this.style.display='none'">
-              <span>🍘</span>
             </div>
             <div class="gallery-thumb" data-img="images/product-detalle.jpg" data-emoji="🍃" onclick="setMain(this)">
               <img src="images/product-detalle.jpg" alt="Detalle galleta" onerror="this.style.display='none'">
-              <span>🍃</span>
             </div>
             <div class="gallery-thumb" data-img="images/product-ingredientes.jpg" data-emoji="🌾" onclick="setMain(this)">
               <img src="images/product-ingredientes.jpg" alt="Ingredientes" onerror="this.style.display='none'">
-              <span>🌾</span>
             </div>
             <div class="gallery-thumb" data-img="images/product-packaging.jpg" data-emoji="📦" onclick="setMain(this)">
               <img src="images/product-packaging.jpg" alt="Empaque Family Farm" onerror="this.style.display='none'">
-              <span>📦</span>
             </div>
           </div>
         </div>
@@ -583,7 +623,6 @@
 
     // Gallery
     function setMain(thumb) {
-      document.getElementById('main-emoji').textContent = thumb.dataset.emoji;
       const mainImg = document.getElementById('main-img-el');
       if (thumb.dataset.img) {
         mainImg.src = thumb.dataset.img;
@@ -614,7 +653,7 @@
 
     // Scroll anim
     const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => obs.observe(el));
     window.addEventListener('scroll', () => { document.getElementById('navbar').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(27,94,94,.15)' : 'none'; });
   </script>
 </body>
