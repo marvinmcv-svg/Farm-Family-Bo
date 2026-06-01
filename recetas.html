@@ -85,7 +85,9 @@
     }
     .recipe-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(27,94,94,.18); }
     .recipe-card[data-hidden="true"] { display: none; }
-    .recipe-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 64px; flex-shrink: 0; }
+    .recipe-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 64px; flex-shrink: 0; position: relative; overflow: hidden; }
+    .recipe-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .recipe-img .r-emoji { position: relative; z-index: 1; }
     .recipe-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
     .recipe-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
     .recipe-cat { font-size: 12px; font-weight: 600; color: var(--teal); background: var(--teal-light); padding: 3px 10px; border-radius: 50px; }
@@ -181,6 +183,35 @@
     .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .fade-up.d1 { transition-delay:.1s; } .fade-up.d2 { transition-delay:.2s; }
+    .fade-left  { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-left.visible  { opacity: 1; transform: translateX(0); }
+    .fade-right { opacity: 0; transform: translateX(40px);  transition: opacity .7s ease, transform .7s ease; }
+    .fade-right.visible { opacity: 1; transform: translateX(0); }
+    .scale-in   { opacity: 0; transform: scale(.88); transition: opacity .6s ease, transform .6s ease; }
+    .scale-in.visible   { opacity: 1; transform: scale(1); }
+
+    /* Ticker */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-wrap { background: var(--orange); padding: 13px 0; overflow: hidden; }
+    .ticker-inner { display: flex; animation: marquee 28s linear infinite; width: max-content; }
+    .ticker-item { padding: 0 36px; font-family: 'Bebas Neue', sans-serif; font-size: 17px; color: #fff; letter-spacing: 2px; white-space: nowrap; }
+    .ticker-item::after { content: '  ·  '; opacity: .5; }
+
+    /* Hero video background */
+    .hero-recetas { position: relative; overflow: hidden; }
+    .hero-video-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; }
+    .hero-recetas-inner { position: relative; z-index: 2; }
+    .hero-video-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(253,250,245,.95) 0%, rgba(228,244,244,.9) 100%); }
+
+    /* Recipe card image zoom on hover */
+    .recipe-img { overflow: hidden; }
+    .recipe-img img { transition: transform .5s ease; }
+    .recipe-card:hover .recipe-img img { transform: scale(1.06); }
+
+    /* Food tile images */
+    .food-tile { position: relative; overflow: hidden; }
+    .food-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+    .food-tile .ft-emoji { position: relative; z-index: 1; }
   </style>
 </head>
 <body>
@@ -207,6 +238,10 @@
 
   <!-- HERO -->
   <section class="hero-recetas">
+    <video class="hero-video-bg" autoplay muted loop playsinline preload="auto">
+      <source src="images/video-receta.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
     <div class="hero-recetas-inner">
       <div class="fade-up">
         <p class="section-kicker">La Mesa de la Familia</p>
@@ -214,13 +249,41 @@
         <p>Recetas simples, rápidas y deliciosas con nuestras galletas de arroz. Porque comer bien no tiene que ser complicado ni aburrido.</p>
       </div>
       <div class="hero-food-grid fade-up d2">
-        <div class="food-tile" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
-        <div class="food-tile" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
-        <div class="food-tile" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">👶</div>
-        <div class="food-tile" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">🥑</div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">
+          <img src="images/receta-uchuva.jpg" alt="Receta uchuva" onerror="this.style.display='none'">
+        </div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">
+          <img src="images/receta-gourmet.jpg" alt="Receta gourmet" onerror="this.style.display='none'">
+        </div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">
+          <img src="images/receta-bebes.jpg" alt="Receta bebés" onerror="this.style.display='none'">
+        </div>
+        <div class="food-tile" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">
+          <img src="images/receta-fitness.jpg" alt="Receta fitness" onerror="this.style.display='none'">
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Mermelada de Uchuva</span>
+      <span class="ticker-item">Cena Gourmet</span>
+      <span class="ticker-item">Snack para Bebés</span>
+      <span class="ticker-item">Desayuno Fitness</span>
+      <span class="ticker-item">Snack Andino</span>
+      <span class="ticker-item">Queso Crema y Miel</span>
+      <span class="ticker-item">Come sin culpa</span>
+      <span class="ticker-item">Mermelada de Uchuva</span>
+      <span class="ticker-item">Cena Gourmet</span>
+      <span class="ticker-item">Snack para Bebés</span>
+      <span class="ticker-item">Desayuno Fitness</span>
+      <span class="ticker-item">Snack Andino</span>
+      <span class="ticker-item">Queso Crema y Miel</span>
+      <span class="ticker-item">Come sin culpa</span>
+    </div>
+  </div>
 
   <!-- FILTERS -->
   <div class="filters">
@@ -244,7 +307,9 @@
 
         <!-- Receta 1 -->
         <div class="recipe-card fade-up" data-cats="desayuno,dulce">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">
+            <img src="images/receta-uchuva.jpg" alt="Galleta con mermelada de uchuva" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <span class="collab-badge">🤝 @dulcesjessen</span>
             <div class="recipe-cats">
@@ -266,7 +331,9 @@
 
         <!-- Receta 2 -->
         <div class="recipe-card fade-up d1" data-cats="cena,gourmet,salado">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">
+            <img src="images/receta-gourmet.jpg" alt="Cena gourmet con galleta Family Farm" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <div class="recipe-cats">
               <span class="recipe-cat">Cena Express</span>
@@ -287,7 +354,9 @@
 
         <!-- Receta 3 -->
         <div class="recipe-card fade-up d2" data-cats="bebes,dulce">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">👶</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8c0d0);">
+            <img src="images/receta-bebes.jpg" alt="Primer snack para bebés Family Farm" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <div class="recipe-cats">
               <span class="recipe-cat">Para Bebés</span>
@@ -308,7 +377,9 @@
 
         <!-- Receta 4 -->
         <div class="recipe-card fade-up" data-cats="desayuno,salado">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">🥑</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e8f5e8,#c0e8c0);">
+            <img src="images/receta-fitness.jpg" alt="Desayuno fitness con palta Family Farm" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <div class="recipe-cats">
               <span class="recipe-cat">Desayuno</span>
@@ -328,7 +399,9 @@
 
         <!-- Receta 5 -->
         <div class="recipe-card fade-up d1" data-cats="desayuno,dulce,gourmet">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#f4f0e8,#e8dcc0);">🧀</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#f4f0e8,#e8dcc0);">
+            <img src="images/receta-queso-miel.jpg" alt="Galleta con queso crema y miel" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <div class="recipe-cats">
               <span class="recipe-cat">Desayuno</span>
@@ -349,7 +422,9 @@
 
         <!-- Receta 6 -->
         <div class="recipe-card fade-up d2" data-cats="gourmet,salado">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#f4e8e4,#e8c8c0);">🌶️</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#f4e8e4,#e8c8c0);">
+            <img src="images/receta-andino.jpg" alt="Snack andino con charque boliviano" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <div class="recipe-cats">
               <span class="recipe-cat">Gourmet</span>
@@ -496,10 +571,22 @@
       <p class="fade-up d1">Muéstranos tus combinaciones favoritas y te repostamos en nuestras historias.</p>
       <span class="ugc-hashtag fade-up d2">#familyfarmbolivia</span>
       <div class="ugc-grid fade-up d2">
-        <div class="ugc-tile" style="background:linear-gradient(145deg,#1B5E5E,#2A7E7E);">🍘</div>
-        <div class="ugc-tile" style="background:linear-gradient(145deg,#E8820A,#F0B429);">🍯</div>
-        <div class="ugc-tile" style="background:linear-gradient(145deg,#2A7E7E,#1B5E5E);">🥑</div>
-        <div class="ugc-tile" style="background:linear-gradient(145deg,#F0B429,#E8820A);">👶</div>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank" class="ugc-tile" style="background:linear-gradient(145deg,#1B5E5E,#2A7E7E);position:relative;overflow:hidden;text-decoration:none;">
+          <img src="images/ig-post-1.jpg" alt="Family Farm Instagram" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:relative;z-index:1;">🍘</span>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank" class="ugc-tile" style="background:linear-gradient(145deg,#E8820A,#F0B429);position:relative;overflow:hidden;text-decoration:none;">
+          <img src="images/ig-post-2.jpg" alt="Family Farm Instagram" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:relative;z-index:1;">🍯</span>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank" class="ugc-tile" style="background:linear-gradient(145deg,#2A7E7E,#1B5E5E);position:relative;overflow:hidden;text-decoration:none;">
+          <img src="images/ig-post-3.jpg" alt="Family Farm Instagram" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:relative;z-index:1;">🥑</span>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank" class="ugc-tile" style="background:linear-gradient(145deg,#F0B429,#E8820A);position:relative;overflow:hidden;text-decoration:none;">
+          <img src="images/ig-post-4.jpg" alt="Family Farm Instagram" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span style="position:relative;z-index:1;">👶</span>
+        </a>
       </div>
       <a href="https://instagram.com/familyfarm_bolivia" target="_blank" class="btn btn-gold">Ver en Instagram 📸</a>
     </div>
@@ -610,7 +697,7 @@
 
     // SCROLL ANIM
     const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+    document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => obs.observe(el));
   </script>
 </body>
 </html>

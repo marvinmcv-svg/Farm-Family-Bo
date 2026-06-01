@@ -167,11 +167,15 @@
       position: relative; overflow: hidden;
       box-shadow: 0 32px 80px rgba(27,94,94,.3);
     }
+    .hero-img-wrap img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: 50%;
+    }
     .hero-img-inner {
       width: 100%; height: 100%;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 12px;
+      gap: 12px; position: relative; z-index: 0;
     }
     .hero-product-icon {
       font-size: 96px; filter: drop-shadow(0 8px 24px rgba(0,0,0,.2));
@@ -207,10 +211,13 @@
       background: rgba(255,255,255,.1);
       min-height: 480px;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 16px;
+      flex-direction: column; gap: 16px; position: relative;
     }
-    .story-img-wrap .story-emoji { font-size: 80px; }
-    .story-img-wrap p { font-size: 13px; opacity: .6; letter-spacing: 1px; }
+    .story-img-wrap img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .story-img-wrap .story-emoji { font-size: 80px; position: relative; z-index: 1; }
+    .story-img-wrap p { font-size: 13px; opacity: .6; letter-spacing: 1px; position: relative; z-index: 1; }
     .story-kicker {
       font-size: 13px; font-weight: 600; letter-spacing: 2px;
       text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
@@ -254,9 +261,12 @@
     .product-card-img {
       height: 220px;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 8px;
+      flex-direction: column; gap: 8px; position: relative; overflow: hidden;
     }
-    .product-card-img .p-emoji { font-size: 64px; }
+    .product-card-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .product-card-img .p-emoji { font-size: 64px; position: relative; z-index: 1; }
     .product-card-body { padding: 24px; }
     .product-card-badge {
       display: inline-block; background: var(--teal-light); color: var(--teal);
@@ -326,7 +336,12 @@
     .recipe-img {
       height: 180px; display: flex; align-items: center;
       justify-content: center; font-size: 56px;
+      position: relative; overflow: hidden;
     }
+    .recipe-img img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    }
+    .recipe-img .r-emoji { position: relative; z-index: 1; }
     .recipe-body { padding: 20px; }
     .recipe-tag { font-size: 12px; color: var(--orange); font-weight: 600; margin-bottom: 6px; }
     .recipe-body h3 { font-size: 17px; margin-bottom: 8px; }
@@ -435,6 +450,73 @@
     .fade-up.delay-3 { transition-delay: .3s; }
     .fade-up.delay-4 { transition-delay: .4s; }
     .fade-up.delay-5 { transition-delay: .5s; }
+
+    /* ── ENHANCED ANIMATIONS ───────────────────────────────────── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes shimmer-bg {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    .fade-left  { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-left.visible  { opacity: 1; transform: translateX(0); }
+    .fade-right { opacity: 0; transform: translateX(40px);  transition: opacity .7s ease, transform .7s ease; }
+    .fade-right.visible { opacity: 1; transform: translateX(0); }
+    .scale-in   { opacity: 0; transform: scale(.88); transition: opacity .6s ease, transform .6s ease; }
+    .scale-in.visible   { opacity: 1; transform: scale(1); }
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+
+    /* Hero image float */
+    .hero-img-wrap { animation: float 6s ease-in-out infinite; }
+
+    /* Hero video background */
+    .hero { position: relative; }
+    .hero-video-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; pointer-events: none;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(135deg, rgba(253,250,245,.96) 0%, rgba(228,244,244,.92) 55%, rgba(27,94,94,.15) 100%);
+    }
+    .hero-inner { position: relative; z-index: 2; }
+
+    /* Ticker */
+    .ticker-wrap { background: var(--orange); padding: 13px 0; overflow: hidden; }
+    .ticker-inner { display: flex; animation: marquee 28s linear infinite; width: max-content; }
+    .ticker-item {
+      padding: 0 36px; font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px; color: #fff; letter-spacing: 2px; white-space: nowrap;
+    }
+    .ticker-item::after { content: '  ·  '; opacity: .5; }
+
+    /* Stats band */
+    .stats-band { background: var(--teal); padding: 64px 0; }
+    .stats-grid  { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .stat-block  { text-align: center; padding: 0 24px; border-right: 1px solid rgba(255,255,255,.15); }
+    .stat-block:last-child { border-right: none; }
+    .stat-num    { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px,6vw,80px); color: var(--gold); line-height: 1; display: block; }
+    .stat-label  { font-size: 13px; color: rgba(255,255,255,.7); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 6px; display: block; }
+    @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding: 24px; } }
+
+    /* Image zoom on hover */
+    .product-card-img, .recipe-img { overflow: hidden; }
+    .product-card-img img, .recipe-img img { transition: transform .5s ease; }
+    .product-card:hover .product-card-img img,
+    .recipe-card:hover .recipe-img img { transform: scale(1.06); }
+
+    /* Video cards */
+    .video-item { transition: transform var(--transition), box-shadow var(--transition); }
+    .video-item:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,.25); }
   </style>
 </head>
 <body>
@@ -471,6 +553,10 @@
 
   <!-- ── HERO ────────────────────────────────────────────────── -->
   <section class="hero" id="inicio">
+    <video class="hero-video-bg" autoplay muted loop playsinline preload="auto">
+      <source src="images/video-lifestyle.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
     <div class="hero-inner">
       <div class="hero-content">
         <div class="hero-badge">Hecho en Santa Cruz, Bolivia</div>
@@ -495,10 +581,7 @@
       </div>
       <div class="hero-visual">
         <div class="hero-img-wrap">
-          <div class="hero-img-inner">
-            <div class="hero-product-icon">🍘</div>
-            <div class="hero-product-label">Galletas de Arroz</div>
-          </div>
+          <img src="images/hero-galletas.jpg" alt="Galletas de Arroz Family Farm Bolivia" onerror="this.style.display='none'">
         </div>
         <div class="hero-float-badge top-right">
           <span class="fb-icon">🌿</span>
@@ -518,13 +601,54 @@
     </div>
   </section>
 
+  <!-- ── TICKER ──────────────────────────────────────────────── -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Sin Gluten</span>
+      <span class="ticker-item">Sin Lactosa</span>
+      <span class="ticker-item">Vegana</span>
+      <span class="ticker-item">Sin Conservantes</span>
+      <span class="ticker-item">Apta para Bebés</span>
+      <span class="ticker-item">Hecha en Bolivia</span>
+      <span class="ticker-item">Come sin culpa</span>
+      <span class="ticker-item">100% Natural</span>
+      <span class="ticker-item">Sin Gluten</span>
+      <span class="ticker-item">Sin Lactosa</span>
+      <span class="ticker-item">Vegana</span>
+      <span class="ticker-item">Sin Conservantes</span>
+      <span class="ticker-item">Apta para Bebés</span>
+      <span class="ticker-item">Hecha en Bolivia</span>
+      <span class="ticker-item">Come sin culpa</span>
+      <span class="ticker-item">100% Natural</span>
+    </div>
+  </div>
+
+  <!-- ── STATS BAND ───────────────────────────────────────────── -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-block scale-in delay-1">
+          <span class="stat-num" data-target="100">0</span>
+          <span class="stat-label">% ingredientes naturales</span>
+        </div>
+        <div class="stat-block scale-in delay-2">
+          <span class="stat-num" data-target="500">0</span>
+          <span class="stat-label">+ familias felices</span>
+        </div>
+        <div class="stat-block scale-in delay-3">
+          <span class="stat-num" data-target="3">0</span>
+          <span class="stat-label">puntos de venta en SCZ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ── HISTORIA DE ORIGEN ───────────────────────────────────── -->
   <section class="story section" id="historia">
     <div class="container">
       <div class="story-inner">
         <div class="story-img-wrap fade-up">
-          <div class="story-emoji">👶🌾</div>
-          <p>EL AVENTURERO — SANTA CRUZ</p>
+          <img src="images/historia-familia.jpg" alt="La familia de Family Farm Bolivia — el aventurero" onerror="this.style.display='none'">
         </div>
         <div class="fade-up delay-2">
           <p class="story-kicker">El corazón de la marca</p>
@@ -565,7 +689,7 @@
 
         <div class="product-card fade-up delay-1">
           <div class="product-card-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">
-            <div class="p-emoji">🍘</div>
+            <img src="images/product-original.jpg" alt="Galleta de Arroz Original Family Farm" onerror="this.style.display='none'">
           </div>
           <div class="product-card-body">
             <span class="product-card-badge">⭐ Más Popular</span>
@@ -580,7 +704,7 @@
 
         <div class="product-card fade-up delay-2">
           <div class="product-card-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">
-            <div class="p-emoji">👶</div>
+            <img src="images/product-bebes.jpg" alt="Galleta de Arroz para Bebés Family Farm" onerror="this.style.display='none'">
           </div>
           <div class="product-card-body">
             <span class="product-card-badge" style="background:#fff8e8;color:#c96e06;">👶 Para Bebés</span>
@@ -596,7 +720,7 @@
 
         <div class="product-card fade-up delay-3">
           <div class="product-card-img" style="background:linear-gradient(145deg,#f4ede4,#e8d5c0);">
-            <div class="p-emoji">🍽️</div>
+            <img src="images/product-gourmet.jpg" alt="Galleta de Arroz Edición Gourmet Family Farm" onerror="this.style.display='none'">
           </div>
           <div class="product-card-body">
             <span class="product-card-badge" style="background:#f4ede4;color:#5a3a1a;">✨ Edición Gourmet</span>
@@ -717,7 +841,9 @@
       <div class="recipes-grid">
 
         <div class="recipe-card fade-up delay-1">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">🍯</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fff8e8,#fdecc8);">
+            <img src="images/receta-uchuva.jpg" alt="Galleta con mermelada de uchuva" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <p class="recipe-tag">Desayuno · Dulce</p>
             <h3>Galleta con Mermelada de Uchuva</h3>
@@ -730,7 +856,9 @@
         </div>
 
         <div class="recipe-card fade-up delay-2">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">🍳</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#e4f4f4,#c8eaea);">
+            <img src="images/receta-gourmet.jpg" alt="Cena gourmet con galleta Family Farm" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <p class="recipe-tag">Cena Express · Gourmet</p>
             <h3>Cena Gourmet en 5 Minutos</h3>
@@ -743,7 +871,9 @@
         </div>
 
         <div class="recipe-card fade-up delay-3">
-          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8bbd0);">👶</div>
+          <div class="recipe-img" style="background:linear-gradient(145deg,#fce4ec,#f8bbd0);">
+            <img src="images/receta-bebes.jpg" alt="Snack para bebés con galleta Family Farm" onerror="this.style.display='none'">
+          </div>
           <div class="recipe-body">
             <p class="recipe-tag">Para Bebés · Dulce</p>
             <h3>Primer Snack del Aventurero</h3>
@@ -808,6 +938,90 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ── INSTAGRAM FEED ───────────────────────────────────────── -->
+  <section style="background:#fff;padding:72px 0;" id="instagram">
+    <div class="container">
+      <div class="section-header fade-up">
+        <p class="section-kicker">Síguenos</p>
+        <h2>@familyfarm_bolivia</h2>
+        <p>Recetas, historia y el día a día de nuestra cocina familiar en Santa Cruz.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px;" id="ig-grid">
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank"
+           class="ig-tile fade-up delay-1" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1;background:linear-gradient(145deg,var(--teal),var(--teal-mid));position:relative;">
+          <img src="images/ig-post-1.jpg" alt="Family Farm Bolivia en Instagram" onerror="this.style.display='none'"
+               style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(27,94,94,0);transition:.3s;display:flex;align-items:center;justify-content:center;" class="ig-overlay">
+            <span style="font-size:28px;opacity:0;transition:.3s;" class="ig-icon">📸</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank"
+           class="ig-tile fade-up delay-2" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1;background:linear-gradient(145deg,#E8820A,#F0B429);position:relative;">
+          <img src="images/ig-post-2.jpg" alt="Family Farm Bolivia en Instagram" onerror="this.style.display='none'"
+               style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(232,130,10,0);transition:.3s;display:flex;align-items:center;justify-content:center;" class="ig-overlay">
+            <span style="font-size:28px;opacity:0;transition:.3s;" class="ig-icon">📸</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank"
+           class="ig-tile fade-up delay-3" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1;background:linear-gradient(145deg,var(--teal-mid),var(--teal));position:relative;">
+          <img src="images/ig-post-3.jpg" alt="Family Farm Bolivia en Instagram" onerror="this.style.display='none'"
+               style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(27,94,94,0);transition:.3s;display:flex;align-items:center;justify-content:center;" class="ig-overlay">
+            <span style="font-size:28px;opacity:0;transition:.3s;" class="ig-icon">📸</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank"
+           class="ig-tile fade-up delay-4" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1;background:linear-gradient(145deg,#F0B429,#E8820A);position:relative;">
+          <img src="images/ig-post-4.jpg" alt="Family Farm Bolivia en Instagram" onerror="this.style.display='none'"
+               style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(240,180,41,0);transition:.3s;display:flex;align-items:center;justify-content:center;" class="ig-overlay">
+            <span style="font-size:28px;opacity:0;transition:.3s;" class="ig-icon">📸</span>
+          </div>
+        </a>
+      </div>
+      <div style="text-align:center;" class="fade-up">
+        <a href="https://www.instagram.com/familyfarm_bolivia/" target="_blank" class="btn btn-primary">
+          Ver más en Instagram 📸
+        </a>
+      </div>
+    </div>
+  </section>
+  <style>
+    .ig-tile:hover .ig-overlay { background: rgba(0,0,0,.35) !important; }
+    .ig-tile:hover .ig-icon { opacity: 1 !important; }
+    @media (max-width: 600px) { #ig-grid { grid-template-columns: repeat(2,1fr); } }
+  </style>
+
+  <!-- ── VIDEO REEL ────────────────────────────────────────────── -->
+  <section style="background:var(--cream);padding:72px 0;" id="reels">
+    <div class="container">
+      <div class="section-header fade-up" style="text-align:center;margin-bottom:48px;">
+        <p class="section-kicker">En Acción</p>
+        <h2 style="font-size:clamp(28px,4vw,44px);color:var(--dark);">Míralo, <em style="color:var(--teal);font-style:normal;">pruébalo</em></h2>
+        <p style="font-size:17px;color:var(--gray);margin-top:12px;">Recetas rápidas para cualquier momento del día</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="video-grid fade-up d2">
+        <div class="video-item">
+          <video src="images/video-receta.mp4" poster="images/receta-uchuva.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+        <div class="video-item">
+          <video src="images/video-lifestyle.mp4" poster="images/ig-post-4.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+        <div class="video-item">
+          <video src="images/video-hero.mp4" poster="images/hero-galletas.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+      </div>
+      <style>@media(max-width:768px){.video-grid{grid-template-columns:1fr!important;}}</style>
     </div>
   </section>
 
@@ -900,7 +1114,6 @@
     });
 
     // Scroll animations (IntersectionObserver)
-    const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -909,7 +1122,27 @@
         }
       });
     }, { threshold: 0.12 });
-    fadeEls.forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => observer.observe(el));
+
+    // Counter animation
+    const counterObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.target;
+        const duration = 1800;
+        const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(eased * target);
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        counterObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
 
     // Navbar shadow on scroll
     window.addEventListener('scroll', () => {

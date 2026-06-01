@@ -1,0 +1,9 @@
+{
+  "name": "farm-family-bo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Family Farm Bolivia — galletas de arroz artesanales",
+  "scripts": {
+    "start": "npx --yes serve -s . -l ${PORT:-3000} --no-clipboard"
+  }
+}
