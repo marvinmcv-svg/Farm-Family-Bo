@@ -895,6 +895,35 @@
     @media (max-width: 600px) { #ig-grid { grid-template-columns: repeat(2,1fr); } }
   </style>
 
+  <!-- ── VIDEO REEL ────────────────────────────────────────────── -->
+  <section style="background:var(--cream);padding:72px 0;" id="reels">
+    <div class="container">
+      <div class="section-header fade-up" style="text-align:center;margin-bottom:48px;">
+        <p class="section-kicker">En Acción</p>
+        <h2 style="font-size:clamp(28px,4vw,44px);color:var(--dark);">Míralo, <em style="color:var(--teal);font-style:normal;">pruébalo</em></h2>
+        <p style="font-size:17px;color:var(--gray);margin-top:12px;">Recetas rápidas para cualquier momento del día</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="video-grid fade-up d2">
+        <div style="border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#000;aspect-ratio:9/16;">
+          <video src="images/receta-video.mp4" poster="images/receta-uchuva.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#000;aspect-ratio:9/16;">
+          <video src="images/hero-video.mp4" poster="images/ig-post-4.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#000;aspect-ratio:9/16;">
+          <video src="images/product-video.mp4" poster="images/hero-galletas.jpg"
+            controls playsinline muted loop
+            style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        </div>
+      </div>
+      <style>@media(max-width:768px){.video-grid{grid-template-columns:1fr!important;}}</style>
+    </div>
+  </section>
+
   <!-- ── CTA BAND ──────────────────────────────────────────────── -->
   <section class="cta-band">
     <div class="container">
