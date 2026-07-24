@@ -1,0 +1,155 @@
+/* ═══════════════════════════════════════════════════════════════
+   Family Farm Bolivia — FX layer
+   Cinematic scroll effects: preloader, cursor, scrub scene,
+   kinetic type, horizontal gallery, film grain.
+   Loaded on every page; fx.js drives the behavior.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ── Film grain ─────────────────────────────────────────────── */
+.fx-grain {
+  position: fixed; inset: -50%; z-index: 2147482998;
+  pointer-events: none; opacity: .045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: fx-grain 7s steps(8) infinite;
+}
+@keyframes fx-grain {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-3%, 2%); }
+  50%  { transform: translate(2%, -3%); }
+  75%  { transform: translate(-2%, -2%); }
+  100% { transform: translate(3%, 3%); }
+}
+
+/* ── Custom cursor ──────────────────────────────────────────── */
+.fx-cursor-dot {
+  position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+  border-radius: 50%; background: #E8820A;
+  z-index: 2147483001; pointer-events: none;
+}
+.fx-cursor-ring {
+  position: fixed; top: 0; left: 0; width: 44px; height: 44px;
+  border-radius: 50%; border: 1.5px solid rgba(27,94,94,.5);
+  z-index: 2147483001; pointer-events: none;
+  transition: background .3s ease, border-color .3s ease;
+}
+.fx-cursor-ring.is-hover { background: rgba(232,130,10,.14); border-color: #E8820A; }
+@media (pointer: coarse) { .fx-cursor-dot, .fx-cursor-ring { display: none; } }
+
+/* ── Preloader ──────────────────────────────────────────────── */
+#preloader {
+  position: fixed; inset: 0; z-index: 2147483002;
+  background: #0d3535; color: #FDFAF5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 20px;
+  /* no-JS / slow-JS safety: fades itself out even if fx.js never runs */
+  animation: fx-prefall .5s ease 4.5s forwards;
+}
+@keyframes fx-prefall { to { opacity: 0; visibility: hidden; } }
+.pre-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px, 4vw, 40px);
+  letter-spacing: .4em; color: #F0B429; padding-left: .4em;
+}
+.pre-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 11vw, 130px); line-height: 1; color: #FDFAF5;
+}
+.pre-bar {
+  width: min(320px, 60vw); height: 2px;
+  background: rgba(255,255,255,.15); overflow: hidden; border-radius: 2px;
+}
+.pre-bar span { display: block; height: 100%; width: 0%; background: #E8820A; }
+
+/* ── Split text ─────────────────────────────────────────────── */
+.fx-word { display: inline-block; }
+.fx-ch   { display: inline-block; will-change: transform, opacity; backface-visibility: hidden; }
+
+/* ── Nav auto-hide ──────────────────────────────────────────── */
+nav.fx-nav { transition: transform .45s cubic-bezier(.4,0,.2,1), box-shadow .3s ease; }
+nav.fx-hidden { transform: translateY(-105%); }
+
+/* ── Cinematic scrub scene ──────────────────────────────────── */
+.scrub-scene {
+  position: relative; height: 100vh; height: 100svh;
+  overflow: hidden; background: #0d3535;
+}
+.scrub-media {
+  position: absolute; inset: 0; overflow: hidden;
+  will-change: transform; transform-origin: center 65%;
+}
+.scrub-media video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.scrub-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 24px;
+  background: linear-gradient(180deg, rgba(13,53,53,.5) 0%, rgba(13,53,53,.1) 45%, rgba(13,53,53,.55) 100%);
+  pointer-events: none;
+}
+.scrub-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 11vw, 190px);
+  line-height: .92; letter-spacing: .02em;
+  color: #FDFAF5; will-change: transform, opacity;
+}
+.scrub-title span { display: block; }
+.scrub-title .line2 { color: #F0B429; }
+.scrub-title .line3 { color: transparent; -webkit-text-stroke: 2px #FDFAF5; }
+.scrub-hint {
+  margin-top: 32px; font-size: 11px; letter-spacing: .45em;
+  text-transform: uppercase; color: rgba(253,250,245,.65); padding-left: .45em;
+}
+
+/* ── Kinetic type ───────────────────────────────────────────── */
+.kinetic { overflow: hidden; padding: 110px 0 90px; background: #FDFAF5; }
+.kinetic-track {
+  display: flex; gap: 56px; width: max-content;
+  margin-left: -12%; will-change: transform;
+}
+.kinetic-track + .kinetic-track { margin-top: 10px; }
+.kinetic-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 11vw, 170px); line-height: .95;
+  white-space: nowrap; color: transparent;
+  -webkit-text-stroke: 2px #1B5E5E;
+}
+.kinetic-word.solid { color: #E8820A; -webkit-text-stroke: 0; }
+.kinetic-word.gold  { color: #F0B429; -webkit-text-stroke: 0; }
+
+/* ── Horizontal gallery ─────────────────────────────────────── */
+#hgallery { background: #131A1A; color: #fff; }
+.hg-pin {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 56px 0;
+  overflow-x: auto; overflow-y: hidden;   /* mobile fallback: native swipe */
+  -webkit-overflow-scrolling: touch;
+}
+.hg-pin.is-js { overflow: hidden; }       /* desktop: GSAP drives it */
+.hg-head { padding: 0 8vw 44px; }
+.hg-kicker {
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+  color: #F0B429; font-weight: 600; margin-bottom: 10px;
+}
+.hg-head h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 7vw, 96px); line-height: .95;
+  color: #fff; letter-spacing: .02em;
+}
+.hg-track { display: flex; gap: 28px; padding: 0 8vw; width: max-content; will-change: transform; }
+.hg-item { flex: 0 0 auto; width: clamp(240px, 30vw, 420px); }
+.hg-item:nth-child(even) { transform: translateY(36px); }
+.hg-item figure { margin: 0; border-radius: 18px; overflow: hidden; }
+.hg-item img {
+  width: 100%; height: clamp(300px, 52vh, 520px);
+  object-fit: cover; display: block; will-change: transform;
+}
+.hg-item figcaption {
+  padding: 14px 4px 0; font-size: 13px;
+  color: rgba(255,255,255,.55); letter-spacing: .5px;
+}
