@@ -518,8 +518,16 @@
     .video-item { transition: transform var(--transition), box-shadow var(--transition); }
     .video-item:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,.25); }
   </style>
+  <link rel="stylesheet" href="fx.css" />
 </head>
 <body>
+
+  <!-- ── PRELOADER ───────────────────────────────────────────── -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pre-logo">FAMILY FARM</div>
+    <div class="pre-num">0</div>
+    <div class="pre-bar"><span></span></div>
+  </div>
 
   <!-- ── NAVBAR ──────────────────────────────────────────────── -->
   <nav id="navbar">
@@ -580,17 +588,17 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="hero-img-wrap">
+        <div class="hero-img-wrap" data-tilt="9">
           <img src="images/hero-galletas.jpg" alt="Galletas de Arroz Family Farm Bolivia" onerror="this.style.display='none'">
         </div>
-        <div class="hero-float-badge top-right">
+        <div class="hero-float-badge top-right" data-parallax="-0.25">
           <span class="fb-icon">🌿</span>
           <div>
             <strong style="display:block;font-size:14px;color:var(--teal)">100% Natural</strong>
             <span style="font-size:12px;color:var(--gray);font-weight:400">Sin ingredientes ocultos</span>
           </div>
         </div>
-        <div class="hero-float-badge bot-left">
+        <div class="hero-float-badge bot-left" data-parallax="0.2">
           <span class="fb-icon">👶</span>
           <div>
             <strong style="display:block;font-size:14px;color:var(--teal)">Apta para bebés</strong>
@@ -674,6 +682,17 @@
           </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── ESCENA CINEMÁTICA (video scrubbed por scroll) ────────── -->
+  <section class="scrub-scene" id="scrub-scene">
+    <div class="scrub-media">
+      <video src="images/video-hero.mp4" poster="images/receta-gourmet.jpg" muted playsinline preload="auto"></video>
+    </div>
+    <div class="scrub-overlay">
+      <h2 class="scrub-title">CRUJIENTE.<span class="line2">HONESTA.</span><span class="line3">BOLIVIANA.</span></h2>
+      <p class="scrub-hint">Desliza para descubrir</p>
     </div>
   </section>
 
@@ -941,6 +960,24 @@
     </div>
   </section>
 
+  <!-- ── GALERÍA HORIZONTAL (pinned scroll) ───────────────────── -->
+  <section id="hgallery">
+    <div class="hg-pin">
+      <div class="hg-head">
+        <p class="hg-kicker">La Galería</p>
+        <h2>DE NUESTRA COCINA A TU MESA</h2>
+      </div>
+      <div class="hg-track">
+        <div class="hg-item"><figure><img src="images/hero-galletas.jpg" alt="Galletas de arroz Family Farm" loading="lazy"><figcaption>01 — La galleta original</figcaption></figure></div>
+        <div class="hg-item"><figure><img src="images/receta-uchuva.jpg" alt="Galleta con mermelada de uchuva" loading="lazy"><figcaption>02 — Mermelada de uchuva</figcaption></figure></div>
+        <div class="hg-item"><figure><img src="images/product-gourmet.jpg" alt="Edición gourmet" loading="lazy"><figcaption>03 — Edición gourmet</figcaption></figure></div>
+        <div class="hg-item"><figure><img src="images/receta-fitness.jpg" alt="Desayuno fitness con palta" loading="lazy"><figcaption>04 — Desayuno fitness</figcaption></figure></div>
+        <div class="hg-item"><figure><img src="images/historia-nino.jpg" alt="El aventurero de Family Farm" loading="lazy"><figcaption>05 — Donde todo empezó</figcaption></figure></div>
+        <div class="hg-item"><figure><img src="images/receta-gourmet.jpg" alt="Cena gourmet en 5 minutos" loading="lazy"><figcaption>06 — Cena en 5 minutos</figcaption></figure></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── INSTAGRAM FEED ───────────────────────────────────────── -->
   <section style="background:#fff;padding:72px 0;" id="instagram">
     <div class="container">
@@ -1025,6 +1062,24 @@
     </div>
   </section>
 
+  <!-- ── KINETIC TYPE ──────────────────────────────────────────── -->
+  <section class="kinetic" aria-hidden="true">
+    <div class="kinetic-track">
+      <span class="kinetic-word">COME SIN CULPA</span>
+      <span class="kinetic-word solid">COME SIN CULPA</span>
+      <span class="kinetic-word">COME SIN CULPA</span>
+      <span class="kinetic-word gold">COME SIN CULPA</span>
+      <span class="kinetic-word">COME SIN CULPA</span>
+    </div>
+    <div class="kinetic-track">
+      <span class="kinetic-word solid">HECHA EN BOLIVIA</span>
+      <span class="kinetic-word">100% NATURAL</span>
+      <span class="kinetic-word gold">SIN GLUTEN</span>
+      <span class="kinetic-word">HECHA EN BOLIVIA</span>
+      <span class="kinetic-word solid">100% NATURAL</span>
+    </div>
+  </section>
+
   <!-- ── CTA BAND ──────────────────────────────────────────────── -->
   <section class="cta-band">
     <div class="container">
@@ -1098,6 +1153,10 @@
   </a>
 
   <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="fx.js" defer></script>
   <script src="chatbot.js" defer></script>
   <script>
     // Hamburger menu
